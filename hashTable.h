@@ -8,6 +8,13 @@
 #ifndef PROJECT3_HASHTABLE_H
 #define PROJECT3_HASHTABLE_H
 
+
+#include <iostream>
+#include <cstring>
+#include<vector>
+
+using namespace std;
+
 //
 //template class hashTable<T> that stores objects in a hash table of type vector<vector<T> >, and which includes:
 //
@@ -24,19 +31,30 @@
 class hashTable
 {
 private:
+static const int m_hashGroups=1;
 
+vector<pair<int, string>> m_table[m_hashGroups];
 
 public:
 
-	void addItem();
+void assign_size(vector<string>  a_dict);
 
-	void deleteItem();
-	
-	void inList();
+bool isEmpty() const;
 
+int hashFunction(int a_key);
 
+void addItem(int a_key, string a_value);
+
+void addVector(vector<string> a_dict);
+
+void deleteItem(int a_key);
+
+string inList(int a_key);
+
+void printTable();
 
 };
+
 
 
 #endif //PROJECT3_HASHTABLE_H
