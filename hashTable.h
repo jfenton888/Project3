@@ -49,7 +49,7 @@ void addVector(vector<string> a_dict);
 
 void deleteItem(int a_key);
 
-string inList(int a_key);
+int inList(int a_key);
 
 void printTable();
 
