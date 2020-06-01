@@ -89,6 +89,22 @@ void hashTable::deleteItem(int a_key)
 	
 }
 
+int hashTable::inList(string a_word) {
+	for (int i = 0; i < m_hashGroups; i++) {
+		int hashValue = hashFunction(i);
+		auto& cell = m_table[hashValue];
+		auto Itr = begin(cell);
+		bool keyExists = false;
+		for (; Itr != end(cell); Itr++) {
+			if (Itr->second == a_word) {
+				int value = Itr->first;
+				return value;
+				break;
+			}
+		}
+
+	}
+}
 
 void hashTable::printTable()
 {
