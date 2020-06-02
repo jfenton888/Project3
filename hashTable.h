@@ -29,22 +29,34 @@ using namespace std;
 //
 
 
-template<typename T>
+template <typename T=string>
 class hashTable
 {
 private:
 	int m_hashGroups=0;
-	vector<string> wordlist;
-	vector<vector<T>> hashstorage;
-public:
-	void readfile();
-	void assign_size();
-	int hashFunction(string a_word);
-	void addvector();
-	void additem(int a_key, string a_value);
-
+	vector<string> m_wordList;
 	
-
+	vector<vector<T>>  m_hashTable;
+	
+public:
+	hashTable()= default;
+	
+	hashTable(string a_fileName, int a_tableSize=701);
+	
+	void readfile(string a_fileName);
+	//void assign_size();
+	int hashFunction(string a_value);
+	//void addvector();
+	//bool isEmpty() const;
+	
+	
+	void addItem(string a_newValue);
+	
+	//void deleteItem(int a_index);
+	
+	bool inList(string a_checkValue);
+	
+	
 };
 
 

@@ -1,5 +1,19 @@
-#include <iostream>
+//
+// Project by Jack Fenton
+// Northeastern University Department of Computer and Electrical Engineering
+// EECE2560 Introduction to Engineering Algorithms
+// Project begun on 2020-05-27.
+//
 
+#include <iostream>
+#include <cstring>
+#include<vector>
+#include<fstream>
+#include<string>
+
+#include "hashTable.h"
+
+using namespace std;
 
 //global functions
 
@@ -8,7 +22,7 @@
 //and which prints out all words that can be found in the grid.
 void findMatches() //pass word list and grid
 {
-
+	return;
 }
 
 //global function search(int) which reads the name of the grid file from the keyboard
@@ -17,7 +31,7 @@ void findMatches() //pass word list and grid
 //the total time. The integer parameter is used to select the sorting algorithm used.
 int search()
 {
-
+	return 0;
 }
 
 
@@ -27,7 +41,10 @@ int search()
 int main()
 {
 
+hashTable<string> myHashTable("wordlist.txt", 701);
 
+cout << myHashTable.inList("handy");
 
 
 }
+
