@@ -12,7 +12,8 @@
 
 using namespace std;
 
-void hashTable::readfile() {
+template<typename T>
+void hashTable<T>::readfile() {
 	ifstream read;
 	string word;
 	string name = "wordlist.txt";
@@ -25,21 +26,27 @@ void hashTable::readfile() {
 	}
 }
 
-void hashTable::assign_size()
+template<typename T>
+void hashTable<T>::assign_size()
 {
 	m_hashGroups = wordlist.size();
 	cout << "hash groups: " << m_hashGroups << endl;
+	hashstorage.resize(m_hashGroups);
 }
 
-void hashTable::addvector() {
+template<typename T>
+void hashTable<T>::addvector() {
 	for (int i = 0; i < wordlist.size(); i++) {
 		string word; 
+		int hashkey;
 		word = wordlist[i];
-		hashFunction(word);
+		hashkey = hashFunction(word);
+		additem(hashkey, word);
 	}
 }
 
-int hashTable::hashFunction(string a_word)
+template<typename T>
+int hashTable<T>::hashFunction(string a_word)
 {
 	double hash = 0;
 	int key;
@@ -56,4 +63,11 @@ int hashTable::hashFunction(string a_word)
 	key = floor(m_hashGroups*thing);
 		
 	return key;
+}
+
+template<typename T>
+void hashTable<T>::additem(int a_hash, string a_value){
+	const unsigned int hashkey = a_hash;
+	vector<T> hash = {hashkey, a_value };
+	hashstorage.push_back(hash);
 }
