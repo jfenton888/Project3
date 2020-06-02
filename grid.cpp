@@ -64,9 +64,9 @@ int grid::getRows()
 }
 
 // returns the character at a specific, given location
-std::string grid::getChar(int r, int c)
+std::string grid::getChar(int a_row, int a_col)
 {
     // check here about range of r and c
-    return theGrid[r][c];
+    return theGrid[a_row][a_col];
 }
 

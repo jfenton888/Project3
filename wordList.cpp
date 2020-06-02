@@ -8,14 +8,15 @@
 #include "wordList.h"
 #include <iostream>
 
+using namespace std;
 
 // read in the list of words from the file
 void wordList::readList(){
-    std::ifstream read;
-    std::string word;
-    std::string name = "wordlist.txt";
+    ifstream read;
+    string word;
+    string name = "wordlist.txt";
     
-    wlist.clear(); // clear the list
+    m_wordList.clear(); // clear the list
     
     read.open(name.c_str()); // open the file
     if (!read){
@@ -24,47 +25,47 @@ void wordList::readList(){
      
     // for each line in the file, push it into the list
     while (getline(read, word)){
-        wlist.push_back(word);
+        m_wordList.push_back(word);
     }
 
     read.close(); // close the file
 }
 
 // override of the print operator
-std::ostream& operator<<(std::ostream& os, const wordList& list) {
+ostream& operator<<(ostream& os, const wordList& list) {
     
     int count = 0;
-    std::cout << "The list has the following words: " << std::endl;
+    cout << "The list has the following words: " << endl;
     // for each word in the list, print it
-    for (int i = 0; i < list.wlist.size(); i++) {
-        os << list.wlist.at(i) << std::endl;
-        count ++;
-    }
+//    for (int i = 0; i < list.m_wordList.size(); i++) {
+//        os << list.m_wordList.at(i) << std::endl;
+//        count ++;
+//    }
     
-    std::cout << "Total number of words in the list: " << count << std::endl;
+    cout << "Total number of words in the list: " << count << endl;
     return os;
 }
 
 // getter for word list
-std::vector<std::string> wordList::getList(){
-    return wlist;
+vector<string> wordList::getList(){
+    return m_wordList;
 }
 
 // use insertion sort to go through list
 void wordList::InerstionSort(){
     
     int i, j;
-    std::string key;
+    string key;
     
-    for (j = 1; j < wlist.size(); j++){
-        key = wlist.at(j); // the item to insert
+    for (j = 1; j < m_wordList.size(); j++){
+        key = m_wordList.at(j); // the item to insert
         i = j - 1; // end of sorted portion
         
-        while (i >= 0 && wlist.at(i) > key){
+        while (i >= 0 && m_wordList.at(i) > key){
             // push item to the right, then add in key
-            wlist.at(i +1) = wlist.at(i);
+            m_wordList.at(i +1) = m_wordList.at(i);
             i = i -1;
-            wlist.at(i + 1) = key;
+            m_wordList.at(i + 1) = key;
             i--;
         }
     }
@@ -93,9 +94,9 @@ void wordList::Merge(int p, int q, int r){
     
    // copy temp vectors
     for (i = 0; i < n1; i++)
-        L.at(i) = wlist.at(p+i);
+        L.at(i) = m_wordList.at(p+i);
     for (j = 0; j <n2; j++)
-        R.at(j) = wlist.at(q + j +1);
+        R.at(j) = m_wordList.at(q + j +1);
     
     // merge temp vectors back to original, in order
     i = 0;
@@ -106,12 +107,12 @@ void wordList::Merge(int p, int q, int r){
         // if the elemenet in the left vector is less than the one in the right
         if (L.at(i) <= R.at(j))
         {
-            wlist.at(k) = L.at(i); // add it to new vector
+            m_wordList.at(k) = L.at(i); // add it to new vector
             i++; // increment vector index
         }
         else // element in right vector is less
         {
-            wlist.at(k) = L.at(j); // add it to new vector
+            m_wordList.at(k) = L.at(j); // add it to new vector
             j++; // increment vector index
         }
         k++;
@@ -119,14 +120,14 @@ void wordList::Merge(int p, int q, int r){
     
     // if elements remain in L, copy them over to the sorted vector
     while(i<n1){
-        wlist.at(k) = L.at(i);
+        m_wordList.at(k) = L.at(i);
         i++;
         k++;
     }
     
     // if elements remain in R, copy them over to the sorted vector
     while(i<n2){
-        wlist.at(k) = L.at(j);
+        m_wordList.at(k) = L.at(j);
         j++;
         k++;
     }
@@ -154,16 +155,16 @@ void swap(std::string *a, std::string *b)
 // partition for quick sort
 int wordList::Partition(int p, int q){
     
-    std::string len = wlist.at(q); // pivot point
+    std::string len = m_wordList.at(q); // pivot point
     int i = (p - 1); // index of the smaller element
     
     for (int j = p; j <= q; j++){
-        if (wlist.at(j) <= len){ // if the current element is smaller or equal to pivot
+        if (m_wordList.at(j) <= len){ // if the current element is smaller or equal to pivot
             i++;
-            swap(&wlist.at(i), &wlist.at(j)); // swap the current element with index
+            swap(&m_wordList.at(i), &m_wordList.at(j)); // swap the current element with index
         }
     }
-    swap(&wlist.at(i+1), &wlist.at(q)); // swap pivot after all has been sorted
+    swap(&m_wordList.at(i+1), &m_wordList.at(q)); // swap pivot after all has been sorted
     return (i+1);
 }
 
@@ -176,16 +177,16 @@ bool wordList::lookUp(std::string word){
     
     int right, left, middle;
     left = 0;
-    right = wlist.size() - 1;
+    right = m_wordList.size() - 1;
     
     while(left <= right) // when the left side id less than or equal to right
     {
         middle = (left + right)/2; // find the middle point
-        if (wlist.at(middle) == word) // if the word is the middle point
+        if (m_wordList.at(middle) == word) // if the word is the middle point
         {
             return true;
         }
-        else if (wlist.at(middle) < word) // middle is than than the word - search right
+        else if (m_wordList.at(middle) < word) // middle is than than the word - search right
         {
             left = middle + 1;
         }

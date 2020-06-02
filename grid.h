@@ -24,11 +24,12 @@ class grid
 public:
     
     grid(){}; // constructor
+    
     void readFile(string filename); // read in the file and store data
     int getRows(); // gets the number of rows
     int getCols(); // gets the number of columns
     
-    string getChar(int r, int c); // get the characters a specific position
+    string getChar(int a_row, int a_col); // get the characters a specific position
     
     matrix<string> theGrid; // matrix of characters
 

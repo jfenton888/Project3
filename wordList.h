@@ -24,20 +24,22 @@
 #include <fstream>
 #include <cmath>
 
+using namespace std;
+
 class wordList
 {
 private:
     
-    std::vector<std::string> wlist; // wordlist stored in a vector
+    vector<string> m_wordList; // wordlist stored in a vector
     
 
 public:
     
     //wordList(); // constructor
     void readList(); // reads words from the text file
-    std::vector<std::string> getList(); // get the list
+    vector<string> getList(); // get the list
     
-    friend std::ostream& operator << (std::ostream os, const wordList& list); // overload print funcion
+    friend ostream& operator << (ostream os, const wordList& a_list); // overload print funcion
     
     void InerstionSort(); // search via Insertion Sort
     void MergeSort(int p, int q); // search via MergeSort
@@ -45,7 +47,7 @@ public:
     void QuickSort(int p, int q); // search via Quick Sort
     int Partition(int p, int h); // partition for quick sort
     void HeapSort(); // search via HeapSort
-    bool lookUp(std::string word); // looks up to see if word exists
+    bool lookUp(string word); // looks up to see if word exists
 
 };
 
