@@ -8,10 +8,12 @@
 #ifndef PROJECT3_HASHTABLE_H
 #define PROJECT3_HASHTABLE_H
 
-
 #include <iostream>
 #include <cstring>
 #include<vector>
+#include<fstream>
+#include<string>
+#include<math.h>
 
 using namespace std;
 
@@ -31,30 +33,17 @@ using namespace std;
 class hashTable
 {
 private:
-static const int m_hashGroups=1;
-
-vector<pair<int, string>> m_table[m_hashGroups];
-
+	int m_hashGroups=0;
+	vector<string> wordlist;
 public:
-
-void assign_size(vector<string>  a_dict);
-
-bool isEmpty() const;
-
-int hashFunction(int a_key);
-
-void addItem(int a_key, string a_value);
-
-void addVector(vector<string> a_dict);
-
-void deleteItem(int a_key);
-
-int inList(int a_key);
-
-void printTable();
+	void readfile();
+	void assign_size();
+	int hashFunction(string a_word);
+	void addvector();
+	bool isEmpty() const;
+	
 
 };
-
 
 
 #endif //PROJECT3_HASHTABLE_H
