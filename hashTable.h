@@ -35,12 +35,13 @@ class hashTable
 private:
 	int m_hashGroups=0;
 	vector<string> wordlist;
+	vector<vector<T>> hashstorage;
 public:
 	void readfile();
 	void assign_size();
 	int hashFunction(string a_word);
 	void addvector();
-	bool isEmpty() const;
+	void additem(int a_key, string a_value);
 	
 
 };
