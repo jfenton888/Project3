@@ -12,112 +12,48 @@
 
 using namespace std;
 
-void hashTable::assign_size(vector<string> m_dict)
-{
-	static const int m_hashGroups = m_dict.size();
-}
+void hashTable::readfile() {
+	ifstream read;
+	string word;
+	string name = "wordlist.txt";
+	wordlist.clear();
 
-bool hashTable::isEmpty() const
-{
-	int sum = 0;
-	for (int i = 0; i < m_hashGroups; i++) {
-		sum += m_table[i].size();
+	read.open(name.c_str());
+
+	while (getline(read, word)) {
+		wordlist.push_back(word);
 	}
-	
-	if (!sum) {
-		return true;
+}
+
+void hashTable::assign_size()
+{
+	m_hashGroups = wordlist.size();
+	cout << "hash groups: " << m_hashGroups << endl;
+}
+
+void hashTable::addvector() {
+	for (int i = 0; i < wordlist.size(); i++) {
+		string word; 
+		word = wordlist[i];
+		hashFunction(word);
 	}
-	return false;
 }
 
-int hashTable::hashFunction(int a_key)
+int hashTable::hashFunction(string a_word)
 {
-	return a_key % m_hashGroups;
-}
+	double hash = 0;
+	int key;
+	key = a_word.length();
 
-void hashTable::addItem(int a_key, string a_value)
-{
-	int hashValue = hashFunction(a_key);
-	auto& cell = m_table[hashValue];
-	auto Itr = begin(cell);
-	bool keyExists = false;
-	for (; Itr != end(cell); Itr++)
+	for (int i = 0; i < a_word.length(); i++)
 	{
-		if (Itr->first == a_key)
-		{
-			keyExists = true;
-			Itr->second = a_value;
-			cout << "key exists. value replaced." << endl;
-			break;
-		}
+		hash += (int)a_word[i];
+		cout << "hash=" << hash << endl;
 	}
 	
-	if (!keyExists)
-		cell.emplace_back(a_key, a_value);
-	
-	return;
-}
-
-
-void hashTable::addVector(vector<string> a_dict)
-{
-	for (int i = 0; i < a_dict.size(); i++)
-		addItem(i, a_dict[i]);
-}
-
-
-
-void hashTable::deleteItem(int a_key)
-{
-	int hashValue = hashFunction(a_key);
-	auto& cell = m_table[hashValue];
-	auto Itr = begin(cell);
-	bool keyExists = false;
-	for (; Itr != end(cell); Itr++)
-	{
-		if (Itr->first == a_key)
-		{
-			keyExists = true;
-			Itr = cell.erase(Itr);
-			cout << "Item Removed" << endl;
-			break;
-		}
-	}
-	
-	if (!keyExists)
-		cout << "Item not found. Pair has not been removed." << endl;
-	
-}
-
-int hashTable::inList(string a_word) {
-	for (int i = 0; i < m_hashGroups; i++) {
-		int hashValue = hashFunction(i);
-		auto& cell = m_table[hashValue];
-		auto Itr = begin(cell);
-		bool keyExists = false;
-		for (; Itr != end(cell); Itr++) {
-			if (Itr->second == a_word) {
-				int value = Itr->first;
-				return value;
-				break;
-			}
-		}
-
-	}
-}
-
-void hashTable::printTable()
-{
-	for (int i = 0; i < m_hashGroups; i++)
-	{
-		if (m_table[i].size() == 0)
-			continue;
+	int thing = (hash * .618033);//.618033 = (sqrt(5)-1)/2
+	thing = fmod(thing, 1);
+	key = floor(m_hashGroups*thing);
 		
-		auto Itr = m_table[i].begin();
-		for (; Itr != m_table[i].end(); Itr++)
-			cout << "Hash Table Key:" << Itr->first << "Value: " << Itr->second << endl;
-	}
-	return;
+	return key;
 }
-
-
