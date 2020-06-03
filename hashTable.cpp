@@ -21,7 +21,6 @@ hashTable<T>::hashTable(string a_fileName, int a_tableSize):m_hashGroups(a_table
 	
 	readfile(a_fileName);
 	
-	cout<<"m_wordList.size()="<<m_wordList.size()<<endl;
 	for(int it=0; it<m_wordList.size();it++)
 	{
 		addItem(m_wordList.at(it));
@@ -42,20 +41,20 @@ vector<T>& hashTable<T>::operator[] (int a_index)
 
 
 template <typename T>
-void hashTable<T>::readfile(string a_fileName) {
-	ifstream read;
-	string word;
-	int numWords;
-	string fileName="wordlist.txt";
+void hashTable<T>::readfile(string a_fileName)
+{
+	string word="NULL";
 	m_wordList.clear();
-
-	read.open(fileName.c_str());
-
-	while (getline(read, word)) {
-		m_wordList.push_back(word);
-		numWords++;
+	
+	ifstream file (a_fileName);
+	if (file.is_open())
+	{
+		while (getline(file, word))
+			m_wordList.push_back(word);
 	}
-	cout<<numWords<<" words in list \n";
+	else
+		cout << "Unable to open file \n";
+	
 }
 
 //template <typename T>
@@ -82,12 +81,10 @@ int hashTable<T>::hashFunction(string a_value)
 	key = a_value.length();
 
 	for (int i = 0; i < a_value.length(); i++)
-	{
 		hash += (int)a_value[i];
-	}
 	
-	key = floor(m_hashGroups*(fmod(hash*.618033,1)));
-		
+	key = floor(m_hashGroups*(fmod(hash*0.618033,1)));
+	
 	return key;
 }
 
@@ -96,7 +93,6 @@ template <typename T>
 void hashTable<T>::addItem(string a_newValue)
 {
 	int hashValue=hashFunction(a_newValue);
-	cout<<a_newValue<<" at: "<<hashValue<<endl;
 	m_hashTable[hashValue].push_back(a_newValue);
 }
 
@@ -110,15 +106,12 @@ template <typename T>
 bool hashTable<T>::inList(string a_checkValue)
 {
 	int hashValue=hashFunction(a_checkValue);
-	cout<<a_checkValue<<" being checked at: "<<hashValue<<endl;
 	
 	for (int it=0;it<m_hashTable[hashValue].size();it++)
 	{
 		if ((m_hashTable.at(hashValue)).at(it)==a_checkValue)
-		{
-			cout<<"Exists \n";
 			return true;
-		}
+		
 	}
 	return false;
 }

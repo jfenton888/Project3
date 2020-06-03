@@ -5,8 +5,9 @@
 // Project begun on 2020-05-27.
 //
 
-#include "wordList.h"
 #include <iostream>
+#include "wordList.h"
+
 
 using namespace std;
 

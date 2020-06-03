@@ -6,6 +6,8 @@
 //
 
 #include "grid.h"
+#include "matrix.h"
+#include "matrix.cpp"
 #include <fstream>
 #include <vector>
 #include <string>

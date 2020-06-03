@@ -13,6 +13,11 @@
 
 #include "hashTable.h"
 #include "hashTable.cpp"
+#include "grid.h"
+#include "heap.h"
+#include "matrix.h"
+#include "matrix.cpp"
+#include "wordList.h"
 
 using namespace std;
 
@@ -44,7 +49,7 @@ int main()
 
 hashTable<string> myHashTable("wordlist.txt", 701);
 
-cout << myHashTable.inList("handy");
+cout << myHashTable.inList("livid");
 
 
 }
