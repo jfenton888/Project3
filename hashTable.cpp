@@ -84,12 +84,9 @@ int hashTable<T>::hashFunction(string a_value)
 	for (int i = 0; i < a_value.length(); i++)
 	{
 		hash += (int)a_value[i];
-		//cout << "hash=" << hash << endl;
 	}
 	
-	int tempKey = int((hash * .618033));//.618033 = (sqrt(5)-1)/2
-	tempKey = int(fmod(tempKey, 1));
-	key = floor(m_hashGroups*tempKey);
+	key = floor(m_hashGroups*(fmod(hash*.618033,1)));
 		
 	return key;
 }
