@@ -21,11 +21,23 @@ hashTable<T>::hashTable(string a_fileName, int a_tableSize):m_hashGroups(a_table
 	
 	readfile(a_fileName);
 	
-	for(auto it=m_wordList.begin(); it<m_wordList.end();it++)
+	cout<<"m_wordList.size()="<<m_wordList.size()<<endl;
+	for(int it=0; it<m_wordList.size();it++)
 	{
-		addItem(m_wordList[it]);
+		addItem(m_wordList.at(it));
 	}
 }
+
+
+// non-constant version: provides general access to matrix elements
+template <typename T>
+vector<T>& hashTable<T>::operator[] (int a_index)
+{
+	if (a_index < 0 || a_index >= m_hashGroups)
+		// throw range error - include error file
+		return m_wordList[a_index];
+}
+
 
 
 
@@ -33,14 +45,17 @@ template <typename T>
 void hashTable<T>::readfile(string a_fileName) {
 	ifstream read;
 	string word;
-	
+	int numWords;
+	string fileName="wordlist.txt";
 	m_wordList.clear();
 
-	read.open(a_fileName.c_str());
+	read.open(fileName.c_str());
 
 	while (getline(read, word)) {
 		m_wordList.push_back(word);
+		numWords++;
 	}
+	cout<<numWords<<" words in list \n";
 }
 
 //template <typename T>
@@ -69,7 +84,7 @@ int hashTable<T>::hashFunction(string a_value)
 	for (int i = 0; i < a_value.length(); i++)
 	{
 		hash += (int)a_value[i];
-		cout << "hash=" << hash << endl;
+		//cout << "hash=" << hash << endl;
 	}
 	
 	int tempKey = int((hash * .618033));//.618033 = (sqrt(5)-1)/2
@@ -84,6 +99,7 @@ template <typename T>
 void hashTable<T>::addItem(string a_newValue)
 {
 	int hashValue=hashFunction(a_newValue);
+	cout<<a_newValue<<" at: "<<hashValue<<endl;
 	m_hashTable[hashValue].push_back(a_newValue);
 }
 
@@ -97,11 +113,15 @@ template <typename T>
 bool hashTable<T>::inList(string a_checkValue)
 {
 	int hashValue=hashFunction(a_checkValue);
+	cout<<a_checkValue<<" being checked at: "<<hashValue<<endl;
 	
-	for (auto it=m_hashTable[hashValue].begin();it<m_hashTable[hashValue].end();it++)
+	for (int it=0;it<m_hashTable[hashValue].size();it++)
 	{
-		if (m_hashTable[hashValue][it]==a_checkValue)
+		if ((m_hashTable.at(hashValue)).at(it)==a_checkValue)
+		{
+			cout<<"Exists \n";
 			return true;
+		}
 	}
 	return false;
 }

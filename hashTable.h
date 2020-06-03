@@ -43,6 +43,9 @@ public:
 	
 	hashTable(string a_fileName, int a_tableSize=701);
 	
+	vector<T>& operator[] (int a_index); // index operator
+	
+	
 	void readfile(string a_fileName);
 	//void assign_size();
 	int hashFunction(string a_value);

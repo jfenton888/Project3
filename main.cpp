@@ -12,6 +12,7 @@
 #include<string>
 
 #include "hashTable.h"
+#include "hashTable.cpp"
 
 using namespace std;
 
