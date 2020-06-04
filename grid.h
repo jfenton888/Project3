@@ -23,16 +23,20 @@ class grid
 {
 public:
     
-    grid(){}; // constructor
+    grid(string a_filename); // constructor
     
-    void readFile(string filename); // read in the file and store data
-    int getRows(); // gets the number of rows
-    int getCols(); // gets the number of columns
+    void readFile(string a_filename); // read in the file and store data
+    int getRows() const; // gets the number of rows
+    int getCols() const; // gets the number of columns
     
-    string getChar(int a_row, int a_col); // get the characters a specific position
+    string getChar(int a_row, int a_col) const; // get the characters a specific position
     
-    matrix<string> theGrid; // matrix of characters
-
+    matrix<string> m_grid; // matrix of characters
+	
+    void printGrid() const;
+    
+	friend ostream& operator << (ostream& cout, const grid& a_grid); // overload print function
+ 
 };
 
 

@@ -36,19 +36,28 @@ private:
 public:
     
     //wordList(); // constructor
-    void readList(); // reads words from the text file
-    vector<string> getList(); // get the list
+    void readList(string a_fileName); // reads words from the text file
     
-    friend ostream& operator << (ostream os, const wordList& a_list); // overload print funcion
+    vector<string> getList(); // get the list
+    int getSize() const;
+    string getAt(int a_index) const;
+    
     
     void InerstionSort(); // search via Insertion Sort
+    
     void MergeSort(int p, int q); // search via MergeSort
-    void Merge(int p, int q, int r); // merge function for mergersort
+    void Merge(int p, int q, int r); // merge function for Merge sort
+    
     void QuickSort(int p, int q); // search via Quick Sort
     int Partition(int p, int h); // partition for quick sort
+    
     void HeapSort(); // search via HeapSort
-    bool lookUp(string word); // looks up to see if word exists
-
+    
+    bool lookUp(string a_word); // looks up to see if word exists
+    
+    
+    friend ostream& operator << (ostream os, const wordList& a_list); // overload print function
+    
 };
 
 

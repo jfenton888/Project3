@@ -54,7 +54,7 @@ void hashTable<T>::readfile(string a_fileName)
 	}
 	else
 		cout << "Unable to open file \n";
-	
+	file.close();
 }
 
 //template <typename T>

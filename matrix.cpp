@@ -25,9 +25,12 @@ matrix<T>::matrix(int a_nRows, int a_nCols, const T& a_initVal):
 template <typename T>
 vector<T>& matrix<T>::operator[] (int a_index)
 {
-	if (a_index < 0 || a_index >= m_nRows)
-		// throw range error - include error file
-		return mat[a_index];
+	if(a_index<0)
+		a_index=m_nRows-a_index;
+	else if(a_index>=m_nRows)
+		a_index-=m_nRows;
+	
+	return mat[a_index];
 }
 
 
@@ -35,9 +38,12 @@ vector<T>& matrix<T>::operator[] (int a_index)
 template <typename T>
 const vector<T>& matrix<T>::operator[] (int a_index) const
 {
-	if (a_index < 0 || a_index >= m_nRows)
-		// throw range error
-		return mat[a_index];
+	if(a_index<0)
+		a_index=m_nRows-a_index;
+	else if(a_index>=m_nRows)
+		a_index-=m_nRows;
+		
+	return mat[a_index];
 }
 
 

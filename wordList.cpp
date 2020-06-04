@@ -12,49 +12,44 @@
 using namespace std;
 
 // read in the list of words from the file
-void wordList::readList(){
-    ifstream read;
-    string word;
-    string name = "wordlist.txt";
-    
+void wordList::readList(string a_fileName)
+{
+    string word="NULL";
     m_wordList.clear(); // clear the list
-    
-    read.open(name.c_str()); // open the file
-    if (!read){
-        // throw an error - include error.h file
-    }
-     
-    // for each line in the file, push it into the list
-    while (getline(read, word)){
-        m_wordList.push_back(word);
-    }
 
-    read.close(); // close the file
+    ifstream file(a_fileName); // open the file
+    if (file.is_open())
+    {
+        while (getline(file, word)) // for each line in the file, push it into the list
+            m_wordList.push_back(word);
+    }
+    else
+        cout << "Unable to open file \n";
+    
+    file.close(); // close the file
 }
 
-// override of the print operator
-ostream& operator<<(ostream& os, const wordList& list) {
-    
-    int count = 0;
-    cout << "The list has the following words: " << endl;
-    // for each word in the list, print it
-//    for (int i = 0; i < list.m_wordList.size(); i++) {
-//        os << list.m_wordList.at(i) << std::endl;
-//        count ++;
-//    }
-    
-    cout << "Total number of words in the list: " << count << endl;
-    return os;
-}
 
 // getter for word list
-vector<string> wordList::getList(){
+vector<string> wordList::getList()
+{
     return m_wordList;
 }
 
+int wordList::getSize() const
+{
+    return m_wordList.size();
+}
+
+string wordList::getAt(int a_index) const
+{
+    return m_wordList.at(a_index);
+}
+
+
 // use insertion sort to go through list
-void wordList::InerstionSort(){
-    
+void wordList::InerstionSort()
+{
     int i, j;
     string key;
     
@@ -70,12 +65,11 @@ void wordList::InerstionSort(){
             i--;
         }
     }
-    
 }
 
 // use merge sort to go through the list
-void wordList::MergeSort(int p, int q){
-    
+void wordList::MergeSort(int p, int q)
+{
     if (p < q){
         int m = floor((p+q)/2);
         MergeSort(p, m);
@@ -85,8 +79,8 @@ void wordList::MergeSort(int p, int q){
 }
 
 
-void wordList::Merge(int p, int q, int r){
-
+void wordList::Merge(int p, int q, int r)
+{
     int i, j, k;
     int n1 = q - p +1;
     int n2 = r-q;
@@ -147,7 +141,7 @@ void wordList::QuickSort(int s, int g){
 // quick function to swap two elements
 void swap(std::string *a, std::string *b)
 {
-    std::string s = *a;
+    string s = *a;
     *a = *b;
     *b = s;
 }
@@ -174,7 +168,7 @@ void wordList::HeapSort(){
     
 }
 
-bool wordList::lookUp(std::string word){
+bool wordList::lookUp(std::string a_word){
     
     int right, left, middle;
     left = 0;
@@ -183,11 +177,11 @@ bool wordList::lookUp(std::string word){
     while(left <= right) // when the left side id less than or equal to right
     {
         middle = (left + right)/2; // find the middle point
-        if (m_wordList.at(middle) == word) // if the word is the middle point
+        if (m_wordList.at(middle) == a_word) // if the word is the middle point
         {
             return true;
         }
-        else if (m_wordList.at(middle) < word) // middle is than than the word - search right
+        else if (m_wordList.at(middle) < a_word) // middle is than than the word - search right
         {
             left = middle + 1;
         }
@@ -198,6 +192,26 @@ bool wordList::lookUp(std::string word){
     }
     
     return false; // word is not in the list
+}
+
+
+
+// override of the print operator
+ostream& operator<<(ostream& os, const wordList& a_list)
+{
+    
+    int count = 0;
+    
+    cout << "The list has the following words: " << endl;
+    // for each word in the list, print it
+    for (int i = 0; i < a_list.getSize(); i++)
+    {
+        os << a_list.getAt(i) << std::endl;
+        count ++;
+    }
+    
+    cout << "Total number of words in the list: " << count << endl;
+    return os;
 }
 
 

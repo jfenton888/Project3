@@ -35,9 +35,10 @@ void findMatches() //pass word list and grid
 //and prints out all words from the word list that can be found in the grid. The function
 //should also print out the CPU time to sort the words, the CPU time to find the words, and
 //the total time. The integer parameter is used to select the sorting algorithm used.
-int search()
+int search(string a_wordBank, string a_puzzle)
 {
-	return 0;
+
+
 }
 
 
@@ -47,9 +48,15 @@ int search()
 int main()
 {
 
-hashTable<string> myHashTable("wordlist.txt", 701);
+	grid myPuzzle("puzzle10.txt");
+	
+	//cout<<myPuzzle;
+	
+	cout<<myPuzzle.getChar(1,1);
+	
+	//hashTable<string> myHashTable("wordlist.txt", 701);
 
-cout << myHashTable.inList("livid");
+	//cout << myHashTable.inList("livid");
 
 
 }

@@ -20,7 +20,7 @@ class matrix {
 private:
     int m_nRows;
     int m_nCols; // number of rows and columns
-    vector<vector<T> > mat; // matrix implemented as vector with nRows and nColumns
+    vector<vector<T>> mat; // matrix implemented as vector with nRows and nColumns
     
     
 public:
