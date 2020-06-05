@@ -52,10 +52,15 @@ int main()
 	
 	//cout<<myPuzzle;
 	
-	cout<<myPuzzle.getChar(1,1);
+	//cout<<myPuzzle.getChar(-2,0);
 	
-	//hashTable<string> myHashTable("wordlist.txt", 701);
+	vector<string> allStrings=myPuzzle.getStrings();
+	
+//	for(int it=0; it<allStrings.size();it++)
+//		cout<<allStrings[it]<<endl;
 
+
+	//hashTable<string> myHashTable("wordlist.txt", 701);
 	//cout << myHashTable.inList("livid");
 
 

@@ -21,20 +21,38 @@ using namespace std;
 
 class grid
 {
+private:
+	
+	vector<string> m_allString;
+	
+	
 public:
     
     grid(string a_filename); // constructor
+	
+	matrix<string> m_grid; // matrix of characters
     
     void readFile(string a_filename); // read in the file and store data
+    
     int getRows() const; // gets the number of rows
     int getCols() const; // gets the number of columns
     
     string getChar(int a_row, int a_col) const; // get the characters a specific position
-    
-    matrix<string> m_grid; // matrix of characters
 	
-    void printGrid() const;
     
+	void addUp(int& a_row,int& a_col,int& a_len);
+	void addUpRight(int& a_row,int& a_col,int& a_len);
+	void addRight(int& a_row,int& a_col,int& a_len);
+	void addDownRight(int& a_row,int& a_col,int& a_len);
+	void addDown(int& a_row,int& a_col,int& a_len);
+	void addDownLeft(int& a_row,int& a_col,int& a_len);
+	void addLeft(int& a_row,int& a_col,int& a_len);
+	void addUpLeft(int& a_row,int& a_col,int& a_len);
+    
+    
+    vector<string> getStrings();
+    
+    void printGrid() const;
 	friend ostream& operator << (ostream& cout, const grid& a_grid); // overload print function
  
 };
