@@ -96,7 +96,7 @@ void grid::addUp(int& a_row,int& a_col,int& a_len)
 {
 	string thisString;
 	for(int it=0;it<a_len;it++)
-		thisString.append(getChar(a_row+it,a_col));
+		thisString.append(getChar(a_row-it,a_col));
 	cout<<"UP a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
@@ -105,7 +105,7 @@ void grid::addUpRight(int& a_row,int& a_col,int& a_len)
 {
 	string thisString;
 	for(int it=0;it<a_len;it++)
-		thisString.append(getChar(a_row+it,a_col+it));
+		thisString.append(getChar(a_row-it,a_col+it));
 	cout<<"UPRIGHT a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
@@ -123,7 +123,7 @@ void grid::addDownRight(int& a_row,int& a_col,int& a_len)
 {
 	string thisString;
 	for(int it=0;it<a_len;it++)
-		thisString.append(getChar(a_row-it,a_col+it));
+		thisString.append(getChar(a_row+it,a_col+it));
 	cout<<"DOWNRIGHT a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
@@ -132,7 +132,7 @@ void grid::addDown(int& a_row,int& a_col,int& a_len)
 {
 	string thisString;
 	for(int it=0;it<a_len;it++)
-		thisString.append(getChar(a_row-it,a_col));
+		thisString.append(getChar(a_row+it,a_col));
 	cout<<"DOWN a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
@@ -141,7 +141,7 @@ void grid::addDownLeft(int& a_row,int& a_col,int& a_len)
 {
 	string thisString;
 	for(int it=0;it<a_len;it++)
-		thisString.append(getChar(a_row-it,a_col-it));
+		thisString.append(getChar(a_row+it,a_col-it));
 	cout<<"DOWNLEFT a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
@@ -159,7 +159,7 @@ void grid::addUpLeft(int& a_row,int& a_col,int& a_len)
 {
 	string thisString;
 	for(int it=0;it<a_len;it++)
-		thisString.append(getChar(a_row+it,a_col-it));
+		thisString.append(getChar(a_row-it,a_col-it));
 	cout<<"UPLEFT a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
