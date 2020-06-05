@@ -56,8 +56,8 @@ int main()
 	
 	vector<string> allStrings=myPuzzle.getStrings();
 	
-//	for(int it=0; it<allStrings.size();it++)
-//		cout<<allStrings[it]<<endl;
+	for(int it=0; it<allStrings.size();it++)
+		cout<<allStrings[it]<<endl;
 
 
 	//hashTable<string> myHashTable("wordlist.txt", 701);

@@ -56,7 +56,7 @@ string grid::getChar(int a_row, int a_col) const
 void grid::readFile(string a_filename)
 {
     // variables to be used to read file
-    string line;
+    string line, cline;
     string letter;
     int rows, cols;
     int r,c;
@@ -77,11 +77,11 @@ void grid::readFile(string a_filename)
 		
 		for (r = 0; r < rows; r++)
 		{
+			getline(file, cline);
 			for (c = 0; c < cols; c++)
 			{
 				// get the next letter, and place it in the grid
-				getline(file, letter, ' ');
-				m_grid[r][c] = letter;
+				m_grid[r][c] = cline[c*2];
 			}
 		}
 	}
@@ -97,7 +97,7 @@ void grid::addUp(int& a_row,int& a_col,int& a_len)
 	string thisString;
 	for(int it=0;it<a_len;it++)
 		thisString.append(getChar(a_row-it,a_col));
-	cout<<"UP a_len: "<<a_len<<" "<<thisString<<endl;
+	//cout<<"UP a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
 
@@ -106,7 +106,7 @@ void grid::addUpRight(int& a_row,int& a_col,int& a_len)
 	string thisString;
 	for(int it=0;it<a_len;it++)
 		thisString.append(getChar(a_row-it,a_col+it));
-	cout<<"UPRIGHT a_len: "<<a_len<<" "<<thisString<<endl;
+	//cout<<"UPRIGHT a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
 
@@ -115,7 +115,7 @@ void grid::addRight(int& a_row,int& a_col,int& a_len)
 	string thisString;
 	for(int it=0;it<a_len;it++)
 		thisString.append(getChar(a_row,a_col+it));
-	cout<<"RIGHT a_len: "<<a_len<<" "<<thisString<<endl;
+	//cout<<"RIGHT a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
 
@@ -124,7 +124,7 @@ void grid::addDownRight(int& a_row,int& a_col,int& a_len)
 	string thisString;
 	for(int it=0;it<a_len;it++)
 		thisString.append(getChar(a_row+it,a_col+it));
-	cout<<"DOWNRIGHT a_len: "<<a_len<<" "<<thisString<<endl;
+	//cout<<"DOWNRIGHT a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
 
@@ -133,7 +133,7 @@ void grid::addDown(int& a_row,int& a_col,int& a_len)
 	string thisString;
 	for(int it=0;it<a_len;it++)
 		thisString.append(getChar(a_row+it,a_col));
-	cout<<"DOWN a_len: "<<a_len<<" "<<thisString<<endl;
+	//cout<<"DOWN a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
 
@@ -142,7 +142,7 @@ void grid::addDownLeft(int& a_row,int& a_col,int& a_len)
 	string thisString;
 	for(int it=0;it<a_len;it++)
 		thisString.append(getChar(a_row+it,a_col-it));
-	cout<<"DOWNLEFT a_len: "<<a_len<<" "<<thisString<<endl;
+	//cout<<"DOWNLEFT a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
 
@@ -151,7 +151,7 @@ void grid::addLeft(int& a_row,int& a_col,int& a_len)
 	string thisString;
 	for(int it=0;it<a_len;it++)
 		thisString.append(getChar(a_row,a_col-it));
-	cout<<"LEFT a_len: "<<a_len<<" "<<thisString<<endl;
+	//cout<<"LEFT a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
 
@@ -160,7 +160,7 @@ void grid::addUpLeft(int& a_row,int& a_col,int& a_len)
 	string thisString;
 	for(int it=0;it<a_len;it++)
 		thisString.append(getChar(a_row-it,a_col-it));
-	cout<<"UPLEFT a_len: "<<a_len<<" "<<thisString<<endl;
+	//cout<<"UPLEFT a_len: "<<a_len<<" "<<thisString<<endl;
 	m_allString.push_back(thisString);
 }
 
@@ -174,7 +174,7 @@ vector<string> grid::getStrings()
 	{
 		for(int col=0;col<getCols();col++)
 		{
-			for(int len=5;len<=6;len++)
+			for(int len=5;len<=21;len++)
 			{
 				addUp(row,col,len);
 				addUpRight(row,col,len);
@@ -200,6 +200,7 @@ void grid::printGrid() const
 	{
 		for(int col=0;col<getCols();col++)
 		{
+			//cout<<"|"<< getChar(row,col)<< "| ";
 			cout<< getChar(row,col)<< " ";
 		}
 		cout<< endl;
