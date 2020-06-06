@@ -63,13 +63,9 @@ int main()
 		}
 	}
 	
+	
+	
 	cout<<"Total Words: "<<numWords<<endl;
-	
-	
-	
-	
-	
-	
 	
 	
 	
