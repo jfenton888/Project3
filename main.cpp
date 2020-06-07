@@ -10,6 +10,7 @@
 #include<vector>
 #include<fstream>
 #include<string>
+#include<chrono>
 
 #include "hashTable.h"
 #include "hashTable.cpp"
@@ -20,7 +21,7 @@
 #include "wordList.h"
 
 using namespace std;
-
+using namespace std::chrono;
 //global functions
 
 
@@ -112,3 +113,37 @@ int search(string& a_wordBank, grid& a_puzzle)
 	return numWords;
 }
 
+
+int searchHash(string& a_wordBank, grid& a_puzzle)
+{
+	auto sortStart = high_resolution_clock::now();
+	
+	hashTable<string> myHashTable(a_wordBank, 701);
+	vector<string> allStrings = a_puzzle.getStrings();
+	
+	auto sortStop = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(sortStop - sortStart);
+	cout << "Time taken by sorting: " << duration.count() << " microseconds" << endl;
+	int numWords = 0;
+
+
+	auto searchStart = high_resolution_clock::now();
+	
+	for (int check = 0; check < allStrings.size(); check++)
+	{
+		if (myHashTable.inList(allStrings[check]))
+		{
+			cout << allStrings[check] << endl;
+			numWords++;
+		}
+	}
+	
+	auto searchStop = high_resolution_clock::now();
+	auto searchTime = duration_cast<microseconds>(searchStop - searchStart);
+	cout << "Time taken by search: " << searchTime.count() << " microseconds" << endl;
+	
+	int totalTime = searchTime.count() + duration.count();
+	cout << "Total time taken:" << totalTime << " microseconds" << endl;
+	
+	return numWords;
+}
