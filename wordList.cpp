@@ -62,7 +62,6 @@ void wordList::InerstionSort()
             m_wordList.at(i +1) = m_wordList.at(i);
             i = i -1;
             m_wordList.at(i + 1) = key;
-            i--;
         }
     }
 }
@@ -107,7 +106,7 @@ void wordList::Merge(int p, int q, int r)
         }
         else // element in right vector is less
         {
-            m_wordList.at(k) = L.at(j); // add it to new vector
+            m_wordList.at(k) = R.at(j); // add it to new vector
             j++; // increment vector index
         }
         k++;
@@ -122,7 +121,7 @@ void wordList::Merge(int p, int q, int r)
     
     // if elements remain in R, copy them over to the sorted vector
     while(i<n2){
-        m_wordList.at(k) = L.at(j);
+        m_wordList.at(k) = R.at(j);
         j++;
         k++;
     }
@@ -138,29 +137,28 @@ void wordList::QuickSort(int s, int g){
     }
 }
 
-// quick function to swap two elements
-void swap(std::string *a, std::string *b)
-{
-    string s = *a;
-    *a = *b;
-    *b = s;
-}
-
-
 // partition for quick sort
-int wordList::Partition(int p, int q){
-    
-    std::string len = m_wordList.at(q); // pivot point
+int wordList::Partition(int p, int q) {
+
+    std::string temp;
+    std::string pivot = m_wordList.at(q); // pivot point
     int i = (p - 1); // index of the smaller element
-    
-    for (int j = p; j <= q; j++){
-        if (m_wordList.at(j) <= len){ // if the current element is smaller or equal to pivot
+
+    for (int j = p; j < q; j++) {
+        if (m_wordList.at(j) <= pivot) { // if the current element is smaller or equal to pivot
             i++;
-            swap(&m_wordList.at(i), &m_wordList.at(j)); // swap the current element with index
+
+            // swap current element with index 
+            temp = m_wordList.at(i);
+            m_wordList.at(i) = m_wordList.at(j);
+            m_wordList.at(j) = temp;
         }
     }
-    swap(&m_wordList.at(i+1), &m_wordList.at(q)); // swap pivot after all has been sorted
-    return (i+1);
+
+    // move pivot to middle 
+    m_wordList.at(q) = m_wordList.at(i + 1);
+        m_wordList.at(i + 1) = pivot;
+        return (i + 1);
 }
 
 
@@ -194,7 +192,10 @@ bool wordList::lookUp(std::string a_word){
     return false; // word is not in the list
 }
 
-
+int wordList::getrange() {
+    int num = m_wordList.size() -1;
+    return num;
+}
 
 // override of the print operator
 ostream& operator<<(ostream& os, const wordList& a_list)
