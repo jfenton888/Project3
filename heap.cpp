@@ -23,20 +23,33 @@ heap<T>::heap()
 
 // build max heap, and sort
 template <typename T>
-void heap<T>::heapSort(vector<T>& a_list)
+void heap<T>::heapSort(vector<T>& a_list, string a_type)
 {
 	int heapSize=a_list.size();
 	
-	buildMaxHeap(a_list);
-	for (int i = heapSize -1; i >= 0; i--)
+	if(a_type=="max")
 	{
-		swap(a_list[0], a_list[i]);
-		heapSize --;
-		
-		maxHeapify(a_list, heapSize, 0);
+		buildMaxHeap(a_list);
+		for (int i = heapSize -1; i >= 0; i--)
+		{
+			swap(a_list[0], a_list[i]);
+			heapSize --;
+			maxHeapify(a_list, heapSize, 0);
+		}
 	}
+	else if(a_type=="min")
+	{
+		buildMinHeap(a_list);
+		for (int i = heapSize -1; i >= 0; i--)
+		{
+			swap(a_list[0], a_list[i]);
+			heapSize --;
+			minHeapify(a_list, heapSize, 0);
+		}
+	}
+	
+	
 }
-
 
 
 // turns unordered list into a max heap
@@ -49,7 +62,6 @@ void heap<T>::buildMaxHeap(vector<T>& a_list)
 		maxHeapify(a_list, heapSize, i);
 	}
 }
-
 
 
 template <typename T>
@@ -82,55 +94,61 @@ void heap<T>::maxHeapify(vector<T>& a_list, int a_heapSize, int i)
 
 
 
-/*
+// turns unordered list into a min heap
 template <typename T>
-void heap<T>::minHeapify(int i, int a_hsize)
+void heap<T>::buildMinHeap(vector<T>& a_list)
+{
+	int heapSize=a_list.size();
+	// go through every element, starting at layer above leaves
+	for (int i = int(floor(heapSize /2)); i > 0; i--){
+		minHeapify(a_list, heapSize, i);
+	}
+}
+
+
+
+template <typename T>
+void heap<T>::minHeapify(vector<T>& a_list, int a_heapSize, int i)
 {
 	int l = left(i);
 	int r = right(i);
 	int small;
 	
 	// set small to the smallest of the children and the root
-	if (l <= a_hsize -1 && m_list.at(l) < m_list.at(i))
+	if (l <= a_heapSize -1 && a_list[l] < a_list[i])
 		small = l;
 	else
 		small = i;
 	
-	if (r <= a_hsize -1 && m_list.at(r) < m_list.at(small))
+	if (r <= a_heapSize -1 && a_list[r] < a_list[small])
 		small = r;
 	
 	// if the root isn't the smallest, swap with smallest child
 	if (small != i)
 	{
-		swap(m_list[i], m_list[small]);
-		minHeapify(small, a_hsize);
+		swap(a_list[i], a_list[small]);
+		minHeapify(a_list, a_heapSize, small);
 	}
 }
 
-// turns unordered list into a min heap
-template <typename T>
-void heap<T>::buildMinHeap(int a_hsize)
-{
-	// go through every element, starting at layer above leaves
-	for (int i = int(floor(a_hsize /2)); i > 0; i--){
-		minHeapify(i, a_hsize);
-	}
-}
-*/
 
 
 
-// quick function to swap two elements
-//template <typename T>
-//void heap<T>::swap(string *a, string *b)
-//{
-//	string s = *a;
-//	*a = *b;
-//	*b = s;
-//}
+
+
 
 
 /*
+//quick function to swap two elements
+template <typename T>
+void heap<T>::swap(string *a, string *b)
+{
+	string s = *a;
+	*a = *b;
+	*b = s;
+}
+
+
 //initialize max heap from values in list1
 template <typename T>
 void heap<T>::initializeMaxHeap(std::vector<T> a_list1)

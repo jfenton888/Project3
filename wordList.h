@@ -51,7 +51,7 @@ public:
     void QuickSort(int p, int q); // search via Quick Sort
     int Partition(int p, int h); // partition for quick sort
     
-    void HeapSort(); // search via HeapSort
+    void HeapSort(string a_type="max"); // search via HeapSort
     
     bool lookUp(string a_word); // looks up to see if word exists
     

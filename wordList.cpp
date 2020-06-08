@@ -173,10 +173,10 @@ int wordList::Partition(int p, int q)
 }
 
 
-void wordList::HeapSort()
+void wordList::HeapSort(string a_type)
 {
     heap<string> thisHeap;
-    thisHeap.heapSort(m_wordList);
+    thisHeap.heapSort(m_wordList, a_type);
     
 }
 

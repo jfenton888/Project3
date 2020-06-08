@@ -41,20 +41,19 @@ private:
 public:
     
     heap(); //constructor
-    
-    //void initializeMaxHeap(vector<T> a_list1); // init Max heap with data from vector
+	
+	void heapSort(vector<T>& a_list, string a_type="max"); // creates max heap, sorts it (when given unsorted list)
+	
 	
 	void buildMaxHeap(vector<T>& a_list); // turns unsorted vector into max heap
     void maxHeapify(vector<T>& a_list, int a_heapSize, int i); // max heapifies node i (children = max heaps)
     
-    /*
-    void initializeMinHeap(vector<T> a_list1); // init Min heap with data from vector
 	
-	void buildMinHeap(int a_hsize); // turns unsorted vector into min heap
-    void minHeapify(int i, int a_hsize); // min heapifies node i (children = min heaps)
-    */
+	void buildMinHeap(vector<T>& a_list); // turns unsorted vector into min heap
+    void minHeapify(vector<T>& a_list, int a_heapSize, int i); // min heapifies node i (children = min heaps)
     
-    void heapSort(vector<T>& a_list); // creates max heap, sorts it (when given unsorted list)
+    
+    
         
     
     int parent(int i) {return int(floor(i/2));} // given node in heap, returns index of parent
@@ -63,11 +62,14 @@ public:
     
     int right(int i) {return 2*i + 1;} // given node in heap, returns index of right child
 	
-	//void swap(string *a, string *b);
+	
+	
     
+    //void initializeMaxHeap(vector<T> a_list1); // init Max heap with data from vector
+	//void initializeMinHeap(vector<T> a_list1); // init Min heap with data from vector
+	
+    //void swap(string *a, string *b);
     //T &getItem(int i) {return m_list[i];} // returns reference to i'th item
-    
-    
     
 };
 

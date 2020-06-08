@@ -170,7 +170,7 @@ int search(string& a_wordBank, grid& a_puzzle, int a_type) {
 	if (a_type == 4)
 	{
 		auto sortStart = high_resolution_clock::now();
-		myWordList.HeapSort();
+		myWordList.HeapSort("min");
 		auto sortStop = high_resolution_clock::now();
 		auto sortTime = duration_cast<microseconds>(sortStop - sortStart);
 		sortTimeint = sortTime.count();
