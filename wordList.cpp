@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include "wordList.h"
+#include "heap.h"
+#include "heap.cpp"
 
 
 using namespace std;
@@ -53,11 +55,13 @@ void wordList::InerstionSort()
     int i, j;
     string key;
     
-    for (j = 1; j < m_wordList.size(); j++){
+    for (j = 1; j < int(m_wordList.size()); j++)
+    {
         key = m_wordList.at(j); // the item to insert
         i = j - 1; // end of sorted portion
         
-        while (i >= 0 && m_wordList.at(i) > key){
+        while (i >= 0 && m_wordList.at(i) > key)
+        {
             // push item to the right, then add in key
             m_wordList.at(i +1) = m_wordList.at(i);
             i = i -1;
@@ -97,7 +101,8 @@ void wordList::Merge(int p, int q, int r)
     j = 0;
     k = p;
     
-    while (i < n1 && j <n2){
+    while (i < n1 && j <n2)
+    {
         // if the elemenet in the left vector is less than the one in the right
         if (L.at(i) <= R.at(j))
         {
@@ -113,14 +118,16 @@ void wordList::Merge(int p, int q, int r)
     }
     
     // if elements remain in L, copy them over to the sorted vector
-    while(i<n1){
+    while(i<n1)
+    {
         m_wordList.at(k) = L.at(i);
         i++;
         k++;
     }
     
     // if elements remain in R, copy them over to the sorted vector
-    while(i<n2){
+    while(i<n2)
+    {
         m_wordList.at(k) = R.at(j);
         j++;
         k++;
@@ -128,9 +135,11 @@ void wordList::Merge(int p, int q, int r)
 }
 
 // use quick sort to go through a list
-void wordList::QuickSort(int s, int g){
+void wordList::QuickSort(int s, int g)
+{
     
-    if (s < g){
+    if (s < g)
+    {
         int p = Partition(s, g);
         QuickSort(s, p -1);
         QuickSort(p+1, g);
@@ -138,16 +147,18 @@ void wordList::QuickSort(int s, int g){
 }
 
 // partition for quick sort
-int wordList::Partition(int p, int q) {
+int wordList::Partition(int p, int q)
+{
 
     std::string temp;
     std::string pivot = m_wordList.at(q); // pivot point
     int i = (p - 1); // index of the smaller element
 
-    for (int j = p; j < q; j++) {
-        if (m_wordList.at(j) <= pivot) { // if the current element is smaller or equal to pivot
+    for (int j = p; j < q; j++)
+    {
+        if (m_wordList.at(j) <= pivot) // if the current element is smaller or equal to pivot
+        {
             i++;
-
             // swap current element with index 
             temp = m_wordList.at(i);
             m_wordList.at(i) = m_wordList.at(j);
@@ -162,11 +173,15 @@ int wordList::Partition(int p, int q) {
 }
 
 
-void wordList::HeapSort(){
+void wordList::HeapSort()
+{
+    heap<string> thisHeap;
+    thisHeap.heapSort(m_wordList);
     
 }
 
-bool wordList::lookUp(std::string a_word){
+bool wordList::lookUp(std::string a_word)
+{
     
     int right, left, middle;
     left = 0;
@@ -176,17 +191,11 @@ bool wordList::lookUp(std::string a_word){
     {
         middle = (left + right)/2; // find the middle point
         if (m_wordList.at(middle) == a_word) // if the word is the middle point
-        {
             return true;
-        }
         else if (m_wordList.at(middle) < a_word) // middle is than than the word - search right
-        {
             left = middle + 1;
-        }
         else // middle is greater than word - search left
-        {
             right = middle -1;
-        }
     }
     
     return false; // word is not in the list

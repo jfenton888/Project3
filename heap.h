@@ -28,28 +28,33 @@
 #include <cmath>
 #include "heap.h"
 
+using namespace std;
+
 template <typename T>
 
 class heap
 {
 private:
-
-    std::vector<T> m_list;
+	
+	//vector<T>* m_list;
 
 public:
     
     heap(); //constructor
     
-    void initializeMaxHeap(std::vector<T> a_list1); // init Max heap with data from vector
-    void maxHeapify(int i, int hsize); // max heapifies node i (children = max heaps)
-    void buildMaxHeap(int hsize); // turns unsorted vector into max heap
+    //void initializeMaxHeap(vector<T> a_list1); // init Max heap with data from vector
+	
+	void buildMaxHeap(vector<T>& a_list); // turns unsorted vector into max heap
+    void maxHeapify(vector<T>& a_list, int a_heapSize, int i); // max heapifies node i (children = max heaps)
     
-    void initializeMinHeap(std::vector<T> a_list1); // init Min heap with data from vector
+    /*
+    void initializeMinHeap(vector<T> a_list1); // init Min heap with data from vector
+	
+	void buildMinHeap(int a_hsize); // turns unsorted vector into min heap
     void minHeapify(int i, int a_hsize); // min heapifies node i (children = min heaps)
-    void buildMinHeap(int a_hsize); // turns undsorted vector into min heap
+    */
     
-    
-    void heapSort(int a_hsize); // creates max heap, sorts it (when given unsorted list)
+    void heapSort(vector<T>& a_list); // creates max heap, sorts it (when given unsorted list)
         
     
     int parent(int i) {return int(floor(i/2));} // given node in heap, returns index of parent
@@ -58,9 +63,9 @@ public:
     
     int right(int i) {return 2*i + 1;} // given node in heap, returns index of right child
 	
-	void swap(std::string *a, std::string *b);
+	//void swap(string *a, string *b);
     
-    T &getItem(int i) {return m_list[i];} // returns reference to i'th item
+    //T &getItem(int i) {return m_list[i];} // returns reference to i'th item
     
     
     

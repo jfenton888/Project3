@@ -15,53 +15,64 @@ using namespace std;
 
 
 template <typename T>
-heap<T>::heap() // make empty heap
+heap<T>::heap()
 {
 }
 
-//initialize max heap from values in list1
+
+
+// build max heap, and sort
 template <typename T>
-void heap<T>::initializeMaxHeap(std::vector<T> a_list1)
+void heap<T>::heapSort(vector<T>& a_list)
 {
-	for (int i = 0; i< a_list1.size(); i++)
-		m_list.push_back(a_list1[i]);
+	int heapSize=a_list.size();
 	
-	buildMaxHeap(int(m_list.size()));
+	buildMaxHeap(a_list);
+	for (int i = heapSize -1; i >= 0; i--)
+	{
+		swap(a_list[0], a_list[i]);
+		heapSize --;
+		
+		maxHeapify(a_list, heapSize, 0);
+	}
 }
 
 
+
+// turns unordered list into a max heap
 template <typename T>
-void heap<T>::maxHeapify(int i, int a_hsize)
+void heap<T>::buildMaxHeap(vector<T>& a_list)
+{
+	int heapSize=a_list.size();
+	// go through every element, starting at layer above leaves
+	for (int i = int(floor(heapSize /2)); i > 0; i--){
+		maxHeapify(a_list, heapSize, i);
+	}
+}
+
+
+
+template <typename T>
+void heap<T>::maxHeapify(vector<T>& a_list, int a_heapSize, int i)
 {
 	int l = left(i);
 	int r = right(i);
 	int large;
 	
 	// set large to the largest of the children and the root
-	if (l <= a_hsize -1 && m_list.at(l) > m_list.at(i))
+	if (l <= a_heapSize -1 && a_list[l] > a_list[i])
 		large = l;
 	else
 		large = i;
 	
-	if (r <= a_hsize -1 && m_list.at(r) > m_list.at(large))
+	if (r <= a_heapSize -1 && a_list[r] > a_list[large])
 		large = r;
 	
 	// if the root isn't the largest, swap with largest child
 	if (large != i)
 	{
-		swap(m_list[i], m_list[large]);
-		maxHeapify(large, a_hsize);
-	}
-}
-
-
-// turns unordered list into a max heap
-template <typename T>
-void heap<T>::buildMaxHeap(int a_hsize)
-{
-	// go through every element, starting at layer above leaves
-	for (int i = int(floor(a_hsize /2)); i > 0; i--){
-		maxHeapify(i, a_hsize);
+		swap(a_list.at(i), a_list.at(large));
+		maxHeapify(a_list, a_heapSize, large);
 	}
 }
 
@@ -69,17 +80,9 @@ void heap<T>::buildMaxHeap(int a_hsize)
 
 
 
-//initialize min heap from values in list1
-template <typename T>
-void heap<T>::initializeMinHeap(std::vector<T> a_list1)
-{
-	for (int i = 0; i< a_list1.size(); i++)
-		m_list.push_back(a_list1[i]);
-	
-	buildMinHeap(int(m_list.size()));
-}
 
 
+/*
 template <typename T>
 void heap<T>::minHeapify(int i, int a_hsize)
 {
@@ -113,38 +116,42 @@ void heap<T>::buildMinHeap(int a_hsize)
 		minHeapify(i, a_hsize);
 	}
 }
-
-
-
-// build max heap, and sort
-template <typename T>
-void heap<T>::heapSort(int a_hsize)
-{
-	buildMaxHeap(a_hsize);
-	for (int i = a_hsize -1; i >= 0; i--){
-		swap(m_list[0], m_list[i]);
-		a_hsize --;
-		
-		maxHeapify(0, a_hsize);
-	}
-}
+*/
 
 
 
 // quick function to swap two elements
+//template <typename T>
+//void heap<T>::swap(string *a, string *b)
+//{
+//	string s = *a;
+//	*a = *b;
+//	*b = s;
+//}
+
+
+/*
+//initialize max heap from values in list1
 template <typename T>
-void heap<T>::swap(std::string *a, std::string *b)
+void heap<T>::initializeMaxHeap(std::vector<T> a_list1)
 {
-	std::string s = *a;
-	*a = *b;
-	*b = s;
+	for (int i = 0; i< a_list1.size(); i++)
+		m_list.push_back(a_list1[i]);
+	
+	buildMaxHeap(int(m_list.size()));
 }
 
 
-
-
-
-
+//initialize min heap from values in list1
+template <typename T>
+void heap<T>::initializeMinHeap(std::vector<T> a_list1)
+{
+	for (int i = 0; i< a_list1.size(); i++)
+		m_list.push_back(a_list1[i]);
+	
+	buildMinHeap(int(m_list.size()));
+}
+*/
 
 
 
