@@ -55,6 +55,7 @@ public:
     
     bool lookUp(string a_word); // looks up to see if word exists
     
+    int getrange();
     
     friend ostream& operator << (ostream os, const wordList& a_list); // overload print function
     
