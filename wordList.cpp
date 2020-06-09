@@ -1,17 +1,19 @@
 //
-// Project by Jack Fenton
+// Project by Jack Fenton, Jonathan Hsin, and Tamara Kahhale
 // Northeastern University Department of Computer and Electrical Engineering
 // EECE2560 Introduction to Engineering Algorithms
 // Project begun on 2020-05-27.
 //
 
 #include <iostream>
+
 #include "wordList.h"
 #include "heap.h"
 #include "heap.cpp"
 
-
 using namespace std;
+
+
 
 // read in the list of words from the file
 void wordList::readList(string a_fileName)
@@ -32,21 +34,6 @@ void wordList::readList(string a_fileName)
 }
 
 
-// getter for word list
-vector<string> wordList::getList()
-{
-    return m_wordList;
-}
-
-int wordList::getSize() const
-{
-    return m_wordList.size();
-}
-
-string wordList::getAt(int a_index) const
-{
-    return m_wordList.at(a_index);
-}
 
 
 // use insertion sort to go through list
@@ -70,6 +57,8 @@ void wordList::InerstionSort()
     }
 }
 
+
+
 // use merge sort to go through the list
 void wordList::MergeSort(int p, int q)
 {
@@ -81,14 +70,13 @@ void wordList::MergeSort(int p, int q)
     }
 }
 
-
 void wordList::Merge(int p, int q, int r)
 {
     int i, j, k;
     int n1 = q - p +1;
     int n2 = r-q;
     
-    std::vector<std::string> L(n1), R(n2); // temporary vectors of length n1 and n2
+    vector<string> L(n1), R(n2); // temporary vectors of length n1 and n2
     
    // copy temp vectors
     for (i = 0; i < n1; i++)
@@ -103,7 +91,7 @@ void wordList::Merge(int p, int q, int r)
     
     while (i < n1 && j <n2)
     {
-        // if the elemenet in the left vector is less than the one in the right
+        // if the element in the left vector is less than the one in the right
         if (L.at(i) <= R.at(j))
         {
             m_wordList.at(k) = L.at(i); // add it to new vector
@@ -134,14 +122,15 @@ void wordList::Merge(int p, int q, int r)
     }
 }
 
+
+
 // use quick sort to go through a list
 void wordList::QuickSort(int s, int g)
 {
-    
     if (s < g)
     {
         int p = Partition(s, g);
-        QuickSort(s, p -1);
+        QuickSort(s, p-1);
         QuickSort(p+1, g);
     }
 }
@@ -150,8 +139,8 @@ void wordList::QuickSort(int s, int g)
 int wordList::Partition(int p, int q)
 {
 
-    std::string temp;
-    std::string pivot = m_wordList.at(q); // pivot point
+    string temp;
+    string pivot = m_wordList.at(q); // pivot point
     int i = (p - 1); // index of the smaller element
 
     for (int j = p; j < q; j++)
@@ -168,24 +157,26 @@ int wordList::Partition(int p, int q)
 
     // move pivot to middle 
     m_wordList.at(q) = m_wordList.at(i + 1);
-        m_wordList.at(i + 1) = pivot;
-        return (i + 1);
+    m_wordList.at(i + 1) = pivot;
+    
+    return (i + 1);
 }
 
 
-void wordList::HeapSort(string a_type)
+
+void wordList::HeapSort(bool a_isMax)
 {
     heap<string> thisHeap;
-    thisHeap.heapSort(m_wordList, a_type);
+    thisHeap.heapSort(m_wordList, a_isMax);
     
 }
 
-bool wordList::lookUp(std::string a_word)
+//Searches sorted list for the given word using Binary Search
+bool wordList::lookUp(string a_word)
 {
-    
-    int right, left, middle;
-    left = 0;
-    right = m_wordList.size() - 1;
+    int middle;
+    int left = 0;
+    int right = m_wordList.size() - 1;
     
     while(left <= right) // when the left side id less than or equal to right
     {
@@ -201,27 +192,25 @@ bool wordList::lookUp(std::string a_word)
     return false; // word is not in the list
 }
 
-int wordList::getrange() {
-    int num = m_wordList.size() -1;
-    return num;
+
+//makes a formatted printout of all the words in the list
+void wordList::printList() const
+{
+    cout << "The list has the following words: " << endl;
+    //iterates through the word list, printing each
+    for (auto word:m_wordList)
+        cout << word << endl;
+    
+    cout << "Total number of words in the list: " << m_wordList.size() << endl;
 }
 
-// override of the print operator
-ostream& operator<<(ostream& os, const wordList& a_list)
+
+
+// override of the print operator, calls printList
+ostream& operator<<(ostream& cout, const wordList& a_list)
 {
-    
-    int count = 0;
-    
-    cout << "The list has the following words: " << endl;
-    // for each word in the list, print it
-    for (int i = 0; i < a_list.getSize(); i++)
-    {
-        os << a_list.getAt(i) << std::endl;
-        count ++;
-    }
-    
-    cout << "Total number of words in the list: " << count << endl;
-    return os;
+    a_list.printList();
+    return cout;
 }
 
 

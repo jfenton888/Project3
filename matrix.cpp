@@ -1,5 +1,5 @@
 //
-// Project by Jack Fenton
+// Project by Jack Fenton, Jonathan Hsin, and Tamara Kahhale
 // Northeastern University Department of Computer and Electrical Engineering
 // EECE2560 Introduction to Engineering Algorithms
 // Project begun on 2020-05-29.

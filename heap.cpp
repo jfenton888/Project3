@@ -1,5 +1,5 @@
 //
-// Project by Jack Fenton
+// Project by Jack Fenton, Jonathan Hsin, and Tamara Kahhale
 // Northeastern University Department of Computer and Electrical Engineering
 // EECE2560 Introduction to Engineering Algorithms
 // Project begun on 2020-05-27.
@@ -14,40 +14,40 @@
 using namespace std;
 
 
-template <typename T>
-heap<T>::heap()
-{
-}
+
+#define PARENT(i) (floor(i/2)) // given node in heap, returns index of parent
+#define LEFT(i) (2*i) // given node in heap, returns index of left child
+#define RIGHT(i) (2*i + 1) // given node in heap, returns index of right child
 
 
 
 // build max heap, and sort
 template <typename T>
-void heap<T>::heapSort(vector<T>& a_list, string a_type)
+void heap<T>::heapSort(vector<T>& a_list, bool a_isMax)
 {
 	int heapSize=a_list.size();
 	
-	if(a_type=="max")
+	//Will create a max heap unless isMax is false
+	if(a_isMax)
 	{
 		buildMaxHeap(a_list);
-		for (int i = heapSize -1; i >= 0; i--)
+		for(int lastUnsorted=heapSize-1; lastUnsorted>=0; lastUnsorted--)
 		{
-			swap(a_list[0], a_list[i]);
+			swap(a_list[0], a_list[lastUnsorted]);
 			heapSize --;
 			maxHeapify(a_list, heapSize, 0);
 		}
 	}
-	else if(a_type=="min")
+	else
 	{
 		buildMinHeap(a_list);
-		for (int i = heapSize -1; i >= 0; i--)
+		for(int lastUnsorted=heapSize-1; lastUnsorted>=0; lastUnsorted--)
 		{
-			swap(a_list[0], a_list[i]);
+			swap(a_list[0], a_list[lastUnsorted]);
 			heapSize --;
 			minHeapify(a_list, heapSize, 0);
 		}
 	}
-	
 	
 }
 
@@ -58,7 +58,7 @@ void heap<T>::buildMaxHeap(vector<T>& a_list)
 {
 	int heapSize=a_list.size();
 	// go through every element, starting at layer above leaves
-	for (int i = int(floor(heapSize /2)); i > 0; i--){
+	for (int i = int(floor(heapSize /2)); i >= 0; i--){
 		maxHeapify(a_list, heapSize, i);
 	}
 }
@@ -67,8 +67,8 @@ void heap<T>::buildMaxHeap(vector<T>& a_list)
 template <typename T>
 void heap<T>::maxHeapify(vector<T>& a_list, int a_heapSize, int i)
 {
-	int l = left(i);
-	int r = right(i);
+	int l = LEFT(i);
+	int r = RIGHT(i);
 	int large;
 	
 	// set large to the largest of the children and the root
@@ -91,16 +91,14 @@ void heap<T>::maxHeapify(vector<T>& a_list, int a_heapSize, int i)
 
 
 
-
-
-
 // turns unordered list into a min heap
 template <typename T>
 void heap<T>::buildMinHeap(vector<T>& a_list)
 {
 	int heapSize=a_list.size();
 	// go through every element, starting at layer above leaves
-	for (int i = int(floor(heapSize /2)); i > 0; i--){
+	for (int i = int(floor(heapSize /2)); i >= 0; i--)
+	{
 		minHeapify(a_list, heapSize, i);
 	}
 }
@@ -110,8 +108,8 @@ void heap<T>::buildMinHeap(vector<T>& a_list)
 template <typename T>
 void heap<T>::minHeapify(vector<T>& a_list, int a_heapSize, int i)
 {
-	int l = left(i);
-	int r = right(i);
+	int l = LEFT(i);
+	int r = RIGHT(i);
 	int small;
 	
 	// set small to the smallest of the children and the root
@@ -132,57 +130,13 @@ void heap<T>::minHeapify(vector<T>& a_list, int a_heapSize, int i)
 }
 
 
-
-
-
-
-
-
-/*
-//quick function to swap two elements
-template <typename T>
-void heap<T>::swap(string *a, string *b)
+template <typename  T>
+void heap<T>::printHeap(vector<T>& a_heap)
 {
-	string s = *a;
-	*a = *b;
-	*b = s;
+	for(auto current:a_heap)
+		cout<<current<<" ";
+	cout<<endl;
 }
-
-
-//initialize max heap from values in list1
-template <typename T>
-void heap<T>::initializeMaxHeap(std::vector<T> a_list1)
-{
-	for (int i = 0; i< a_list1.size(); i++)
-		m_list.push_back(a_list1[i]);
-	
-	buildMaxHeap(int(m_list.size()));
-}
-
-
-//initialize min heap from values in list1
-template <typename T>
-void heap<T>::initializeMinHeap(std::vector<T> a_list1)
-{
-	for (int i = 0; i< a_list1.size(); i++)
-		m_list.push_back(a_list1[i]);
-	
-	buildMinHeap(int(m_list.size()));
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,5 +1,5 @@
 //
-// Project by Jack Fenton
+// Project by Jack Fenton, Jonathan Hsin, and Tamara Kahhale
 // Northeastern University Department of Computer and Electrical Engineering
 // EECE2560 Introduction to Engineering Algorithms
 // Project begun on 2020-05-27.
@@ -7,10 +7,10 @@
 
 #include <iostream>
 #include <cstring>
-#include<vector>
-#include<fstream>
-#include<string>
-#include<chrono>
+#include <vector>
+#include <fstream>
+#include <string>
+#include <chrono>
 
 #include "hashTable.h"
 #include "hashTable.cpp"
@@ -19,16 +19,12 @@
 #include "matrix.h"
 #include "matrix.cpp"
 #include "wordList.h"
+#include "reverse_iterate.h"
 
 using namespace std;
 using namespace std::chrono;
 //global functions
 
-
-//global function findMatches() that is passed the word list and the grid as parameters
-//and which prints out all words that can be found in the grid.
-
-void findMatches(string& a_wordBank, grid& a_puzzle); //pass word list and grid
 
 
 //global function search(int) which reads the name of the grid file from the keyboard
@@ -36,16 +32,23 @@ void findMatches(string& a_wordBank, grid& a_puzzle); //pass word list and grid
 //should also print out the CPU time to sort the words, the CPU time to find the words, and
 //the total time. The integer parameter is used to select the sorting algorithm used.
 
-int search(string& a_wordBank, grid& a_puzzle);
 int search(string& a_wordBank, grid& a_puzzle, int a_type);
 
 int searchHash(string& a_wordBank, grid& a_puzzle);
 
 
-
 int main()
 {
 	int answer = 0;
+	
+	//grid puzzle("input15.txt");
+	grid puzzle("puzzle50.txt");
+	
+	int numWords = 0;
+	string wordBank = "wordlist2.txt";
+	
+	
+	
 	cout << "Please enter a number: \n"<<
 			"1. Insertion Sort \n"<<
 			"2. Merge Sort \n"<<
@@ -55,20 +58,13 @@ int main()
 			"6. Print all matches \n";
 	cin >> answer;
 
-	//grid puzzle("input15.txt");
-	grid puzzle("puzzle15.txt");
 	
 	
-	//findMatches("wordlist2.txt", a_puzzle);
-	int numWords = 0;
-	//string wordBank = "15x15s.txt";
-	string wordBank = "wordlist2.txt";
 
 	if (answer < 5) {
 		numWords = search(wordBank, puzzle, answer);
 		
 	}
-
 	if (answer == 5) {
 		numWords = searchHash(wordBank, puzzle);
 	}
@@ -77,7 +73,7 @@ int main()
 	
 }
 
-
+/*
 void findMatches(string& a_wordBank, grid& a_puzzle) //pass word list and grid
 {
 	int totalMatches=search(a_wordBank, a_puzzle,1);
@@ -116,7 +112,7 @@ int search(string& a_wordBank, grid& a_puzzle)
 
 
 
-/*
+
 int searchHeap(string& a_wordBank, grid& a_puzzle) {
 
 }*/
@@ -125,8 +121,8 @@ int searchHeap(string& a_wordBank, grid& a_puzzle) {
 
 int search(string& a_wordBank, grid& a_puzzle, int a_type) {
 
-	wordList myWordList;
-	myWordList.readList(a_wordBank);
+	wordList myWordList(a_wordBank);
+	
 	vector<string> allStrings = a_puzzle.getStrings();
 	int numWords = 0;
 	int sortTimeint=0;
@@ -147,8 +143,8 @@ int search(string& a_wordBank, grid& a_puzzle, int a_type) {
 	if (a_type == 2)
 	{
 		auto sortStart = high_resolution_clock::now();
-		int para = myWordList.getrange();
-		myWordList.MergeSort(0, para);
+		
+		myWordList.MergeSort(0, myWordList.getSize()-1);
 		auto sortStop = high_resolution_clock::now();
 		auto sortTime = duration_cast<microseconds>(sortStop - sortStart);
 		sortTimeint = sortTime.count();
@@ -159,8 +155,8 @@ int search(string& a_wordBank, grid& a_puzzle, int a_type) {
 	if (a_type == 3)
 	{
 		auto sortStart = high_resolution_clock::now();
-		int para = myWordList.getrange();
-		myWordList.QuickSort(0, para);
+		
+		myWordList.QuickSort(0, myWordList.getSize()-1);
 		auto sortStop = high_resolution_clock::now();
 		auto sortTime = duration_cast<microseconds>(sortStop - sortStart);
 		sortTimeint = sortTime.count();
@@ -170,7 +166,7 @@ int search(string& a_wordBank, grid& a_puzzle, int a_type) {
 	if (a_type == 4)
 	{
 		auto sortStart = high_resolution_clock::now();
-		myWordList.HeapSort("min");
+		myWordList.HeapSort();
 		auto sortStop = high_resolution_clock::now();
 		auto sortTime = duration_cast<microseconds>(sortStop - sortStart);
 		sortTimeint = sortTime.count();
@@ -208,7 +204,7 @@ int searchHash(string& a_wordBank, grid& a_puzzle)
 {
 	auto sortStart = high_resolution_clock::now();
 	
-	hashTable<string> myHashTable(a_wordBank, 701);
+	hashTable<string> myHashTable(a_wordBank, 49157);
 	vector<string> allStrings = a_puzzle.getStrings();
 	
 	auto sortStop = high_resolution_clock::now();

@@ -1,5 +1,5 @@
 //
-// Project by Jack Fenton
+// Project by Jack Fenton, Jonathan Hsin, and Tamara Kahhale
 // Northeastern University Department of Computer and Electrical Engineering
 // EECE2560 Introduction to Engineering Algorithms
 // Project begun on 2020-05-27.
@@ -10,9 +10,11 @@
 #include<vector>
 #include<fstream>
 #include<string>
+
 #include "hashTable.h"
 
 using namespace std;
+
 
 template <typename T>
 hashTable<T>::hashTable(string a_fileName, int a_tableSize):m_hashGroups(a_tableSize)
@@ -21,10 +23,9 @@ hashTable<T>::hashTable(string a_fileName, int a_tableSize):m_hashGroups(a_table
 	
 	readfile(a_fileName);
 	
-	for(int it=0; it<m_wordList.size();it++)
-	{
-		addItem(m_wordList.at(it));
-	}
+	for(auto word:m_wordList)
+		addItem(word);
+	
 }
 
 
@@ -57,21 +58,6 @@ void hashTable<T>::readfile(string a_fileName)
 	file.close();
 }
 
-//template <typename T>
-//void hashTable<T>::assign_size()
-//{
-//	m_hashGroups = m_wordList.size();
-//	cout << "hash groups: " << m_hashGroups << endl;
-//}
-//
-//template <typename T>
-//void hashTable<T>::addvector() {
-//	for (int i = 0; i < m_wordList.size(); i++) {
-//		string word;
-//		word = m_wordList[i];
-//		hashFunction(word);
-//	}
-//}
 
 template <typename T>
 int hashTable<T>::hashFunction(string a_value)
@@ -116,3 +102,23 @@ bool hashTable<T>::inList(string a_checkValue)
 	return false;
 }
 
+
+
+
+
+
+//template <typename T>
+//void hashTable<T>::assign_size()
+//{
+//	m_hashGroups = m_wordList.size();
+//	cout << "hash groups: " << m_hashGroups << endl;
+//}
+//
+//template <typename T>
+//void hashTable<T>::addvector() {
+//	for (int i = 0; i < m_wordList.size(); i++) {
+//		string word;
+//		word = m_wordList[i];
+//		hashFunction(word);
+//	}
+//}
