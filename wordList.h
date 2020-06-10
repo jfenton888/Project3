@@ -55,8 +55,8 @@ public:
     void QuickSort(int p, int q); // search via Quick Sort
     int Partition(int p, int h); // partition for quick sort
     
-    void HeapSort(bool a_isMax=true);  // search via HeapSort, will use maxHeap by default
-    // or minHeap if argument is provided as false
+    void HeapSort(bool a_isMax=true);   // search via HeapSort, will use maxHeap by default
+    									// or minHeap if argument is provided as false
     
     bool lookUp(string a_word); //Uses Binary Search to check is argument exists in word list
     							//returns true if word is found

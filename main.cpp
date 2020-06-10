@@ -37,16 +37,17 @@ int searchHash(string& a_wordBank, grid& a_puzzle);
 
 void findMatches(string& a_wordBank, grid& a_puzzle);
 
+int isInt(string a_prompt, int a_min, int a_max);
+
 
 int main()
 {
 	int answer = 0;
 	
-	//grid puzzle("input15.txt");
-	grid puzzle("puzzle50.txt");
+	grid puzzle("puzzle15.txt");
 	
 	int numWords = 0;
-	string wordBank = "wordlist2.txt";
+	string wordBank = "wordlist.txt";
 	
 	
 	
@@ -56,12 +57,13 @@ int main()
 			"3. Quick Sort \n"<<
 			"4. Heap \n"<<
 			"5. HashTable \n"<<
-			"6. Print all matches \n";
-	cin >> answer;
+			"6. Print all matches \n"<<
+			"7. Exit Program \n";
+	
+	answer=isInt("",1,6);
 
 	
 	
-
 	if (answer < 5) {
 		numWords = search(wordBank, puzzle, answer);
 		
@@ -79,42 +81,6 @@ int main()
 	
 }
 
-
-/*
-int search(string& a_wordBank, grid& a_puzzle)
-{
-	auto sortStart = high_resolution_clock::now();
-	hashTable<string> myHashTable(a_wordBank, 701);
-	auto sortStop = high_resolution_clock::now();
-	vector<string> allStrings = a_puzzle.getStrings();
-	auto duration = duration_cast<microseconds>(sortStop - sortStart);
-	cout << "Time taken by sorting: " << duration.count() << " microseconds" << endl;
-	int numWords = 0;
-
-
-	auto searchStart = high_resolution_clock::now();
-	for (int check = 0; check < allStrings.size(); check++)
-	{
-		if (myHashTable.inList(allStrings[check]))
-		{
-			cout << allStrings[check] << endl;
-			numWords++;
-		}
-	}
-	auto searchStop = high_resolution_clock::now();
-	auto searchTime = duration_cast<microseconds>(searchStop - searchStart);
-	cout << "Time taken by search: " << searchTime.count() << " microseconds" << endl;
-	int totalTime = searchTime.count() + duration.count();
-	cout << "Total time taken: " << totalTime << " microseconds" << endl;
-	return numWords;
-}
-
-
-
-
-int searchHeap(string& a_wordBank, grid& a_puzzle) {
-
-}*/
 
 
 void findMatches(string& a_wordBank, grid& a_puzzle) //pass word list and grid
@@ -152,42 +118,41 @@ int search(string& a_wordBank, grid& a_puzzle, int a_type) {
 	auto sortStart = high_resolution_clock::now();
 	auto sortStop = high_resolution_clock::now();
 	
-	//Insertion Sort
-	if (a_type == 1)
+	
+	switch(a_type)
 	{
-		sortStart = high_resolution_clock::now();
-		myWordList.InerstionSort();
-		sortStop = high_resolution_clock::now();
-	}
-	//Merge Sort
-	if (a_type == 2)
-	{
-		sortStart = high_resolution_clock::now();
-		myWordList.MergeSort(0, myWordList.getSize()-1);
-		sortStop = high_resolution_clock::now();
-	}
-	//Quick Sort
-	if (a_type == 3)
-	{
-		sortStart = high_resolution_clock::now();
-		myWordList.QuickSort(0, myWordList.getSize()-1);
-		sortStop = high_resolution_clock::now();
-	}
-	//Heap Sort
-	if (a_type == 4)
-	{
-		sortStart = high_resolution_clock::now();
-		myWordList.HeapSort();
-		sortStop = high_resolution_clock::now();
+		case 1: //Insertion Sort
+			sortStart = high_resolution_clock::now();
+			myWordList.InerstionSort();
+			sortStop = high_resolution_clock::now();
+			break;
+			
+		case 2: //Merge Sort
+			sortStart = high_resolution_clock::now();
+			myWordList.MergeSort(0, myWordList.getSize()-1);
+			sortStop = high_resolution_clock::now();
+			break;
+			
+		case 3: //Quick Sort
+			sortStart = high_resolution_clock::now();
+			myWordList.QuickSort(0, myWordList.getSize()-1);
+			sortStop = high_resolution_clock::now();
+			break;
+			
+		case 4: //Heap Sort
+			sortStart = high_resolution_clock::now();
+			myWordList.HeapSort();
+			sortStop = high_resolution_clock::now();
+			break;
 	}
 	
+
 	auto sortTime = duration_cast<microseconds>(sortStop - sortStart);
 	sortTimeint = sortTime.count();
 	cout << "Time taken by sorting: " << sortTime.count() << " microseconds" << endl;
 	
 	
 	auto searchStart = high_resolution_clock::now();
-	
 	
 	for (auto checkString:allStrings)
 	{
@@ -198,14 +163,13 @@ int search(string& a_wordBank, grid& a_puzzle, int a_type) {
 		}
 	}
 	
-	
 	auto searchStop = high_resolution_clock::now();
+	
 	auto searchTime = duration_cast<microseconds>(searchStop - searchStart);
 	cout << "Time taken by search: " << searchTime.count() << " microseconds" << endl;
 	SearchTimeint = searchTime.count();
 	int totalTime = SearchTimeint + sortTimeint;
 	cout << "Total time taken: " << totalTime << " microseconds" << endl;
-	
 	
 	return numWords;
 }
@@ -213,9 +177,9 @@ int search(string& a_wordBank, grid& a_puzzle, int a_type) {
 
 int searchHash(string& a_wordBank, grid& a_puzzle)
 {
+	int numWords = 0;
 	
 	vector<string> allStrings = a_puzzle.getStrings();
-	
 	
 	auto sortStart = high_resolution_clock::now();
 	hashTable<string> myHashTable(a_wordBank, 12289);
@@ -226,7 +190,7 @@ int searchHash(string& a_wordBank, grid& a_puzzle)
 	
 	auto duration = duration_cast<microseconds>(sortStop - sortStart);
 	cout << "Time taken by sorting: " << duration.count() << " microseconds" << endl;
-	int numWords = 0;
+	
 
 
 	auto searchStart = high_resolution_clock::now();
@@ -250,4 +214,23 @@ int searchHash(string& a_wordBank, grid& a_puzzle)
 	cout << "Total time taken: " << totalTime << " microseconds" << endl;
 	
 	return numWords;
+}
+
+
+
+int isInt(string a_prompt, int a_min, int a_max)
+{
+	int input=NULL;
+	while((input<a_min) || (input>a_max))
+	{
+		cout << a_prompt;
+		cin >> input;
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore();
+		}
+		else break;
+	}
+	return input;
 }
