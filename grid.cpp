@@ -22,18 +22,6 @@ grid::grid(string a_filename)
 
 
 
-// return the number of columns
-int grid::getCols() const
-{
-	return m_grid.cols();
-}
-
-// return the number of rows
-int grid::getRows() const
-{
-	return m_grid.rows();
-}
-
 // returns the character at a specific, given location
 string grid::getChar(int a_row, int a_col) const
 {

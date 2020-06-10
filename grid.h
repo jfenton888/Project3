@@ -25,7 +25,6 @@ private:
 	
 	vector<string> m_allString;
 	
-	
 public:
     
     grid(string a_filename); // constructor
@@ -34,13 +33,15 @@ public:
     
     void readFile(string a_filename); // read in the file and store data
     
-    int getRows() const; // gets the number of rows
-    int getCols() const; // gets the number of columns
+    int getRows() const {return m_grid.rows();}; // gets the number of rows
+    int getCols() const {return m_grid.cols();}; // gets the number of columns
     
     string getChar(int a_row, int a_col) const; // get the characters a specific position
-	
     
-	void addUp(int& a_row,int& a_col,int& a_len);
+	//8 directions strings can be made going
+	//each function adds the string from a starting coordinate
+	//going in a certain direction for a specified length
+    void addUp(int& a_row,int& a_col,int& a_len);
 	void addUpRight(int& a_row,int& a_col,int& a_len);
 	void addRight(int& a_row,int& a_col,int& a_len);
 	void addDownRight(int& a_row,int& a_col,int& a_len);

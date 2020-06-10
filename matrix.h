@@ -18,8 +18,9 @@ template <typename T>
 
 class matrix {
 private:
-    int m_nRows;
-    int m_nCols; // number of rows and columns
+	// number of rows and columns
+	int m_nRows;
+    int m_nCols;
     vector<vector<T>> mat; // matrix implemented as vector with nRows and nColumns
     
     
@@ -31,8 +32,8 @@ public:
     
     const vector<T>& operator[](int a_index) const;
     
-    int rows() const; // returns number of rows
-    int cols() const; // returns number of columns
+    int rows() const {return m_nRows;}; // returns number of rows
+    int cols() const {return m_nCols;}; // returns number of columns
     
     void resize(int a_nRows, int a_nCols); // changes the size of the matrix
 

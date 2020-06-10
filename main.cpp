@@ -23,9 +23,8 @@
 
 using namespace std;
 using namespace std::chrono;
+
 //global functions
-
-
 
 //global function search(int) which reads the name of the grid file from the keyboard
 //and prints out all words from the word list that can be found in the grid. The function
@@ -35,6 +34,8 @@ using namespace std::chrono;
 int search(string& a_wordBank, grid& a_puzzle, int a_type);
 
 int searchHash(string& a_wordBank, grid& a_puzzle);
+
+void findMatches(string& a_wordBank, grid& a_puzzle);
 
 
 int main()
@@ -121,9 +122,9 @@ void findMatches(string& a_wordBank, grid& a_puzzle) //pass word list and grid
 	wordList myWordList;
 	myWordList.readList(a_wordBank);
 	vector<string> allStrings = a_puzzle.getStrings();
+	
 	int numWords = 0;
-	int para = myWordList.getrange();
-	myWordList.QuickSort(0, para);
+	myWordList.QuickSort(0, myWordList.getSize()-1);
 
 	for (auto checkString : allStrings)
 	{
@@ -143,56 +144,48 @@ int search(string& a_wordBank, grid& a_puzzle, int a_type) {
 	wordList myWordList(a_wordBank);
 	
 	vector<string> allStrings = a_puzzle.getStrings();
+	
 	int numWords = 0;
 	int sortTimeint=0;
 	int SearchTimeint = 0;
 	
+	auto sortStart = high_resolution_clock::now();
+	auto sortStop = high_resolution_clock::now();
+	
 	//Insertion Sort
 	if (a_type == 1)
 	{
-		auto sortStart = high_resolution_clock::now();
+		sortStart = high_resolution_clock::now();
 		myWordList.InerstionSort();
-		auto sortStop = high_resolution_clock::now();
-		auto sortTime = duration_cast<microseconds>(sortStop - sortStart);
-		sortTimeint = sortTime.count();
-		cout << "Time taken by sorting: " << sortTime.count() << " microseconds" << endl;
+		sortStop = high_resolution_clock::now();
 	}
-
 	//Merge Sort
 	if (a_type == 2)
 	{
-		auto sortStart = high_resolution_clock::now();
-		
+		sortStart = high_resolution_clock::now();
 		myWordList.MergeSort(0, myWordList.getSize()-1);
-		auto sortStop = high_resolution_clock::now();
-		auto sortTime = duration_cast<microseconds>(sortStop - sortStart);
-		sortTimeint = sortTime.count();
-		cout << "Time taken by sorting: " << sortTime.count() << " microseconds" << endl;
+		sortStop = high_resolution_clock::now();
 	}
-
 	//Quick Sort
 	if (a_type == 3)
 	{
-		auto sortStart = high_resolution_clock::now();
-		
+		sortStart = high_resolution_clock::now();
 		myWordList.QuickSort(0, myWordList.getSize()-1);
-		auto sortStop = high_resolution_clock::now();
-		auto sortTime = duration_cast<microseconds>(sortStop - sortStart);
-		sortTimeint = sortTime.count();
-		cout << "Time taken by sorting: " << sortTime.count() << " microseconds" << endl;
+		sortStop = high_resolution_clock::now();
 	}
 	//Heap Sort
 	if (a_type == 4)
 	{
-		auto sortStart = high_resolution_clock::now();
+		sortStart = high_resolution_clock::now();
 		myWordList.HeapSort();
-		auto sortStop = high_resolution_clock::now();
-		auto sortTime = duration_cast<microseconds>(sortStop - sortStart);
-		sortTimeint = sortTime.count();
-		cout << "Time taken by sorting: " << sortTime.count() << " microseconds" << endl;
+		sortStop = high_resolution_clock::now();
 	}
 	
-
+	auto sortTime = duration_cast<microseconds>(sortStop - sortStart);
+	sortTimeint = sortTime.count();
+	cout << "Time taken by sorting: " << sortTime.count() << " microseconds" << endl;
+	
+	
 	auto searchStart = high_resolution_clock::now();
 	
 	
@@ -214,23 +207,23 @@ int search(string& a_wordBank, grid& a_puzzle, int a_type) {
 	cout << "Total time taken: " << totalTime << " microseconds" << endl;
 	
 	
-	
 	return numWords;
 }
 
 
 int searchHash(string& a_wordBank, grid& a_puzzle)
 {
-	auto sortStart = high_resolution_clock::now();
-	
-	hashTable<string> myHashTable(a_wordBank, 12289);
-	// some numbers to try 701, 12289, 49157
-	
-	//myHashTable.printSizes();
 	
 	vector<string> allStrings = a_puzzle.getStrings();
 	
+	
+	auto sortStart = high_resolution_clock::now();
+	hashTable<string> myHashTable(a_wordBank, 12289);
 	auto sortStop = high_resolution_clock::now();
+	// some numbers to try 701, 12289, 49157
+	//myHashTable.printSizes();
+	
+	
 	auto duration = duration_cast<microseconds>(sortStop - sortStart);
 	cout << "Time taken by sorting: " << duration.count() << " microseconds" << endl;
 	int numWords = 0;

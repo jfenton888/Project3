@@ -54,11 +54,11 @@ public:
 	
 	void addItem(string a_newValue); // adds given argument to the table, location calculated using hashFunction
 	
-	//void deleteItem(int a_index);
+	void deleteItem(vector<T>& a_hash, int a_place);
 	
 	bool inList(string a_checkValue); // returns boolean for if the given argument is found in the table
 	
-	void printSizes();
+	void printSizes(); //prints the size of the vector at each hash value, used to check the hashFunction
 	
 	vector<T>& operator[] (int a_index); // index operator
 	

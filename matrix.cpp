@@ -57,17 +57,6 @@ matrix<T> &matrix<T>::operator=(matrix<T> a_mat)
 	return *this;
 }
 
-template <typename T>
-int matrix<T>::rows() const
-{
-	return m_nRows;
-}
-
-template <typename T>
-int matrix<T>::cols() const
-{
-	return m_nCols;
-}
 
 template <typename T>
 void matrix<T>::resize(int a_nRows, int a_nCols)

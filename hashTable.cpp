@@ -84,11 +84,11 @@ void hashTable<T>::addItem(string a_newValue)
 	m_hashTable[hashValue].push_back(a_newValue);
 }
 
-//template <typename T>
-//void hashTable<T>::deleteItem(int a_index)
-//{
-//
-//}
+template <typename T>
+void hashTable<T>::deleteItem(vector<T>& a_hash, int a_place)
+{
+	a_hash.erase(a_hash.begin() + a_place);
+}
 
 template <typename T>
 void::hashTable<T>::printSizes()
@@ -113,6 +113,8 @@ bool hashTable<T>::inList(string a_checkValue)
 		if ((m_hashTable.at(hashValue)).at(it)==a_checkValue)
 		{
 			//cout<< m_hashTable[hashValue].size()<<endl;
+			deleteItem(m_hashTable[hashValue], it);
+			
 			return true;
 		}
 		
