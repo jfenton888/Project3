@@ -69,19 +69,17 @@ int main()
 		numWords = searchHash(wordBank, puzzle);
 	}
 	
+	if (answer == 6) {
+		findMatches(wordBank, puzzle);
+		return 0;
+	}
+	
 	cout << "Total Words: " << numWords << endl;
 	
 }
 
+
 /*
-void findMatches(string& a_wordBank, grid& a_puzzle) //pass word list and grid
-{
-	int totalMatches=search(a_wordBank, a_puzzle,1);
-	cout<<"Total Words: "<<totalMatches<<endl;
-}
-
-
-
 int search(string& a_wordBank, grid& a_puzzle)
 {
 	auto sortStart = high_resolution_clock::now();
@@ -117,6 +115,27 @@ int searchHeap(string& a_wordBank, grid& a_puzzle) {
 
 }*/
 
+
+void findMatches(string& a_wordBank, grid& a_puzzle) //pass word list and grid
+{
+	wordList myWordList;
+	myWordList.readList(a_wordBank);
+	vector<string> allStrings = a_puzzle.getStrings();
+	int numWords = 0;
+	int para = myWordList.getrange();
+	myWordList.QuickSort(0, para);
+
+	for (auto checkString : allStrings)
+	{
+		if (myWordList.lookUp(checkString))
+		{
+			cout << checkString << endl;
+			numWords++;
+		}
+	}
+
+	cout << "Total Matches: " << numWords << endl;
+}
 
 
 int search(string& a_wordBank, grid& a_puzzle, int a_type) {
