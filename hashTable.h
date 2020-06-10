@@ -58,6 +58,8 @@ public:
 	
 	bool inList(string a_checkValue); // returns boolean for if the given argument is found in the table
 	
+	void printSizes();
+	
 	vector<T>& operator[] (int a_index); // index operator
 	
 };

@@ -62,15 +62,17 @@ void hashTable<T>::readfile(string a_fileName)
 template <typename T>
 int hashTable<T>::hashFunction(string a_value)
 {
-	double hash = 0;
+	long double hash = 0;
 	int key;
 	key = a_value.length();
 
 	for (int i = 0; i < a_value.length(); i++)
-		hash += (int)a_value[i];
+		hash += (int)a_value[i]*pow(3,i);
 	
-	key = floor(m_hashGroups*(fmod(hash*0.618033,1)));
+	long double A = (powf(5,0.5)-1)/2;
+	key = floor(m_hashGroups*(fmod(hash*A,1)));
 	
+	//if(key==0) cout<<a_value<<" is "<<hash<<endl;
 	return key;
 }
 
@@ -89,6 +91,19 @@ void hashTable<T>::addItem(string a_newValue)
 //}
 
 template <typename T>
+void::hashTable<T>::printSizes()
+{
+	int totSize=0;
+	for(auto hash:m_hashTable)
+	{
+		cout << hash.size() << endl;
+		totSize+=hash.size();
+	}
+	cout<<endl<<totSize<<endl;
+}
+
+
+template <typename T>
 bool hashTable<T>::inList(string a_checkValue)
 {
 	int hashValue=hashFunction(a_checkValue);
@@ -96,7 +111,10 @@ bool hashTable<T>::inList(string a_checkValue)
 	for (int it=0;it<m_hashTable[hashValue].size();it++)
 	{
 		if ((m_hashTable.at(hashValue)).at(it)==a_checkValue)
+		{
+			//cout<< m_hashTable[hashValue].size()<<endl;
 			return true;
+		}
 		
 	}
 	return false;

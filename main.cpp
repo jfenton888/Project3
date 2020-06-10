@@ -204,7 +204,11 @@ int searchHash(string& a_wordBank, grid& a_puzzle)
 {
 	auto sortStart = high_resolution_clock::now();
 	
-	hashTable<string> myHashTable(a_wordBank, 49157);
+	hashTable<string> myHashTable(a_wordBank, 12289);
+	// some numbers to try 701, 12289, 49157
+	
+	//myHashTable.printSizes();
+	
 	vector<string> allStrings = a_puzzle.getStrings();
 	
 	auto sortStop = high_resolution_clock::now();
