@@ -44,7 +44,7 @@ int main()
 {
 	int answer = 0;
 	
-	grid puzzle("puzzle15.txt");
+	grid puzzle("puzzle50.txt");
 	
 	int numWords = 0;
 	string wordBank = "wordlist.txt";
